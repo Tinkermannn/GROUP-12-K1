@@ -40,11 +40,19 @@ async function updateLecturer(req, res) {
 
 async function deleteLecturer(req, res) {
     try {
+        // Ambil data dosen sebelum dihapus
+        const lecturer = await Lecturer.findById(req.params.id);
+        if (!lecturer) throw new Error("Lecturer not found");
+
+        // Hapus dosen
         await Lecturer.findByIdAndDelete(req.params.id);
-        res.status(200).json({ success: true, message: "Lecturer deleted" });
+
+        // Tampilkan data dosen yang dihapus
+        res.status(200).json({ success: true, message: "Lecturer deleted", data: lecturer });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }
 }
+
 
 module.exports = { createLecturer, getAllLecturers, getLecturerById, updateLecturer, deleteLecturer };
