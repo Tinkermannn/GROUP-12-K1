@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/create", courseReg.createCourseRegistration);
 
 // Get all course registrations
-router.get("/", courseReg.getAllCourseRegistrations);
+router.get("/all", courseReg.getAllCourseRegistrations);
 
 // Get course registration by ID
 router.get("/:id", courseReg.getCourseRegistrationById);
