@@ -40,11 +40,19 @@ async function updateCourse(req, res) {
 
 async function deleteCourse(req, res) {
     try {
+        // Ambil data course terlebih dahulu
+        const course = await Course.findById(req.params.id).populate("lecturer");
+        if (!course) throw new Error("Course not found");
+
+        // Hapus course
         await Course.findByIdAndDelete(req.params.id);
-        res.status(200).json({ success: true, message: "Course deleted" });
+
+        // Tampilkan course yang dihapus
+        res.status(200).json({ success: true, message: "Course deleted", data: course });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }
 }
+
 
 module.exports = { createCourse, getAllCourses, getCourseById, updateCourse, deleteCourse };
