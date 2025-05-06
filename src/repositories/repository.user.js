@@ -8,6 +8,16 @@ async function createUser(req, res) {
     try {
         const { username, email, password, role } = req.body;
 
+        // Validate email format
+        if (!emailRegex.test(email)) {
+            throw new Error("Format email tidak valid");
+        }
+
+        // Validate password strength
+        if (!passwordRegex.test(password)) {
+            throw new Error("Password harus minimal 8 karakter dan mengandung huruf, angka, dan karakter khusus");
+        }
+
         // Cek apakah username atau email sudah ada
         const usernameExists = await User.exists({ username });
         const emailExists = await User.exists({ email });
@@ -15,11 +25,15 @@ async function createUser(req, res) {
         if (usernameExists) throw new Error("Username sudah terdaftar");
         if (emailExists) throw new Error("Email sudah terdaftar");
 
+        // Hash password sebelum menyimpan
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         // Buat user baru
         const newUser = new User({
             username,
             email,
-            password,
+            password: hashedPassword,
             role,
         });
 
@@ -70,15 +84,26 @@ async function updateUser(req, res) {
     try {
         const { username, email, password, role } = req.body;
 
-        // Cek apakah password ada dalam request untuk di-update
+        // Validate email if provided
+        if (email && !emailRegex.test(email)) {
+            throw new Error("Format email tidak valid");
+        }
+
+        // Validate and hash password if provided
         if (password) {
-            // Jika password ada, hash password baru
+            if (!passwordRegex.test(password)) {
+                throw new Error("Password harus minimal 8 karakter dan mengandung huruf, angka, dan karakter khusus");
+            }
+
+            // Hash password baru
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(password, salt);
         }
 
         // Update user
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+        if (!updatedUser) throw new Error("User tidak ditemukan");
 
         res.status(200).json({
             success: true,
@@ -109,6 +134,11 @@ async function deleteUser(req, res) {
 async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
+
+        // Validate email format
+        if (!emailRegex.test(email)) {
+            throw new Error("Format email tidak valid");
+        }
 
         const user = await User.findOne({ email });
 
