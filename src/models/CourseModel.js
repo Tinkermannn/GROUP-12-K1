@@ -24,6 +24,12 @@ const courseSchema = new mongoose.Schema(
             ref: "Lecturer",
             required: true,
         },
+        prerequisites: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Course",
+            },
+        ],
     },
     { timestamps: true }
 );

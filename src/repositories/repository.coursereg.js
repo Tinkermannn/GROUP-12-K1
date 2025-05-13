@@ -13,22 +13,42 @@ async function createCourseRegistration(req, res) {
 
         // Cek apakah student dan course ada
         const studentExist = await Student.exists({ _id: studentId });
-        const courseExist = await Course.exists({ _id: courseId });
+        const course = await Course.findById(courseId).populate("prerequisites");
 
         if (!studentExist) throw new Error("Student not found");
-        if (!courseExist) throw new Error("Course not found");
+        if (!course) throw new Error("Course not found");
+
+        // Cek apakah semua prasyarat sudah diluluskan
+        const approvedCourses = await CourseRegistration.find({
+            student: studentId,
+            status: "approved",
+        }).select("course");
+
+        const approvedCourseIds = approvedCourses.map(reg => reg.course.toString());
+
+        const unmetPrereqs = course.prerequisites.filter(prereq => {
+            return !approvedCourseIds.includes(prereq._id.toString());
+        });
+
+        if (unmetPrereqs.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Cannot register. Prerequisite courses not yet passed.",
+                missing: unmetPrereqs.map(prereq => prereq.name),
+            });
+        }
 
         // Buat course registration baru
         const newRegistration = new CourseRegistration({
             student: studentId,
             course: courseId,
             academic_year,
-            semester
+            semester,
         });
 
         const savedRegistration = await newRegistration.save();
 
-        // Update student dengan course registration baru
+        // Update student dengan course registration baru (opsional, kalau `Student` punya field `courses`)
         await Student.updateOne(
             { _id: studentId },
             { $push: { courses: savedRegistration._id } }
@@ -39,6 +59,7 @@ async function createCourseRegistration(req, res) {
             message: "Course registration successful",
             data: savedRegistration,
         });
+
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }
