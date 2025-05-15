@@ -1,0 +1,824 @@
+{
+    "info": {
+        "name": "University API Benchmark - Fixed",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+        "name": "Users",
+        "item": [
+            {
+            "name": "POST Create User",
+            "request": {
+                "method": "POST",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "url": "{{base_url}}/users/create",
+                "body": {
+                "mode": "raw",
+                "raw": "{\"username\":\"testuser\",\"email\":\"testuser@test.com\",\"password\":\"password123!\",\"role\":\"student\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 201 or 200\", () => pm.expect(pm.response.code).to.be.oneOf([200,201]));",
+                    "var json = pm.response.json();",
+                    "pm.environment.set(\"user_id\", json.data?.id || json.data?._id || json.id || json._id);",
+                    "pm.test(\"User ID captured\", () => pm.expect(pm.environment.get(\"user_id\")).to.not.be.empty);"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "POST User Login",
+            "request": {
+                "method": "POST",
+                "url": "{{base_url}}/users/login",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"testuser@test.com\",\"password\":\"password123!\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET All Users",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/users"
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET User By ID",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/users/{{user_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"user_id\")) {",
+                    "  pm.test(\"Skipped - No user_id\", () => {});",
+                    "  postman.setNextRequest(null);",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "pm.test(\"User ID matches\", () => {",
+                    "  const json = pm.response.json();",
+                    "  const id = json.id || json._id || json.data?.id || json.data?._id;",
+                    "  pm.expect(id).to.eql(pm.environment.get(\"user_id\"));",
+                    "});"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "PUT Update User",
+            "request": {
+                "method": "PUT",
+                "url": "{{base_url}}/users/{{user_id}}",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"username\":\"updateduser\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"user_id\")) {",
+                    "  postman.setNextRequest(null);",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "DELETE User",
+            "request": {
+                "method": "DELETE",
+                "url": "{{base_url}}/users/{{user_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"user_id\")) {",
+                    "  postman.setNextRequest(null);",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200 or 404\", () => pm.expect(pm.response.code).to.be.oneOf([200,404]));",
+                    "pm.environment.unset(\"user_id\");"
+                    ]
+                }
+                }
+            ]
+            }
+        ]
+        },
+        {
+        "name": "Students",
+        "item": [
+            {
+            "name": "POST Create Student",
+            "request": {
+                "method": "POST",
+                "url": "{{base_url}}/students/create",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"user_id\":\"{{user_id}}\",\"nim\":\"TEST123\",\"name\":\"Test Student\",\"major\":\"Computer Science\",\"semester\":1}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"user_id\")) {",
+                    "  postman.setNextRequest(\"POST Create User\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 201 or 200\", () => pm.expect(pm.response.code).to.be.oneOf([200,201]));",
+                    "var json = pm.response.json();",
+                    "pm.environment.set(\"student_id\", json.id || json._id || json.data?.id || json.data?._id);",
+                    "pm.test(\"Student ID captured\", () => pm.expect(pm.environment.get(\"student_id\")).to.not.be.empty);"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET All Students",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/students"
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET Student By ID",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/students/{{student_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"student_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Student\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "pm.test(\"Student ID matches\", () => {",
+                    "  const json = pm.response.json();",
+                    "  const id = json.id || json._id || json.data?.id || json.data?._id;",
+                    "  pm.expect(id).to.eql(pm.environment.get(\"student_id\"));",
+                    "});"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "PUT Update Student",
+            "request": {
+                "method": "PUT",
+                "url": "{{base_url}}/students/{{student_id}}",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"major\":\"Mathematics\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"student_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Student\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "DELETE Student",
+            "request": {
+                "method": "DELETE",
+                "url": "{{base_url}}/students/{{student_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"student_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Student\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200 or 404\", () => pm.expect(pm.response.code).to.be.oneOf([200,404]));",
+                    "pm.environment.unset(\"student_id\");"
+                    ]
+                }
+                }
+            ]
+            }
+        ]
+        },
+        {
+        "name": "Lecturers",
+        "item": [
+            {
+            "name": "POST Create Lecturer",
+            "request": {
+                "method": "POST",
+                "url": "{{base_url}}/lecturers/create",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Dr. Smith\",\"nidn\":\"123456789\",\"department\":\"Computer Science\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 201 or 200\", () => pm.expect(pm.response.code).to.be.oneOf([200,201]));",
+                    "var json = pm.response.json();",
+                    "pm.environment.set(\"lecturer_id\", json.id || json._id || json.data?.id || json.data?._id);",
+                    "pm.test(\"Lecturer ID captured\", () => pm.expect(pm.environment.get(\"lecturer_id\")).to.not.be.empty);"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET All Lecturers",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/lecturers"
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET Lecturer By ID",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/lecturers/{{lecturer_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"lecturer_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Lecturer\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "pm.test(\"Lecturer ID matches\", () => {",
+                    "  const json = pm.response.json();",
+                    "  const id = json.id || json._id || json.data?.id || json.data?._id;",
+                    "  pm.expect(id).to.eql(pm.environment.get(\"lecturer_id\"));",
+                    "});"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "PUT Update Lecturer",
+            "request": {
+                "method": "PUT",
+                "url": "{{base_url}}/lecturers/{{lecturer_id}}",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"department\":\"Mathematics\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"lecturer_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Lecturer\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "DELETE Lecturer",
+            "request": {
+                "method": "DELETE",
+                "url": "{{base_url}}/lecturers/{{lecturer_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"lecturer_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Lecturer\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200 or 404\", () => pm.expect(pm.response.code).to.be.oneOf([200,404]));",
+                    "pm.environment.unset(\"lecturer_id\");"
+                    ]
+                }
+                }
+            ]
+            }
+        ]
+        },
+        {
+        "name": "Courses",
+        "item": [
+            {
+            "name": "POST Create Course",
+            "request": {
+                "method": "POST",
+                "url": "{{base_url}}/courses/create",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"course_code\":\"CS101\",\"name\":\"Introduction to Computer Science\",\"credits\":3,\"semester\":1,\"lecturer_id\":\"{{lecturer_id}}\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"lecturer_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Lecturer\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 201 or 200\", () => pm.expect(pm.response.code).to.be.oneOf([200,201]));",
+                    "var json = pm.response.json();",
+                    "pm.environment.set(\"course_id\", json.id || json._id || json.data?.id || json.data?._id);",
+                    "pm.test(\"Course ID captured\", () => pm.expect(pm.environment.get(\"course_id\")).to.not.be.empty);"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET All Courses",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/courses"
+            },
+            "event": [
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET Course By ID",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/courses/{{course_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"course_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "pm.test(\"Course ID matches\", () => {",
+                    "  const json = pm.response.json();",
+                    "  const id = json.id || json._id || json.data?.id || json.data?._id;",
+                    "  pm.expect(id).to.eql(pm.environment.get(\"course_id\"));",
+                    "});"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "PUT Update Course",
+            "request": {
+                "method": "PUT",
+                "url": "{{base_url}}/courses/{{course_id}}",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Advanced Computer Science\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"course_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "DELETE Course",
+            "request": {
+                "method": "DELETE",
+                "url": "{{base_url}}/courses/{{course_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"course_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200 or 404\", () => pm.expect(pm.response.code).to.be.oneOf([200,404]));",
+                    "pm.environment.unset(\"course_id\");"
+                    ]
+                }
+                }
+            ]
+            }
+        ]
+        },
+        {
+        "name": "Course Registrations",
+        "item": [
+            {
+            "name": "POST Create Course Registration",
+            "request": {
+                "method": "POST",
+                "url": "{{base_url}}/course-registrations/create",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"studentId\":\"{{student_id}}\",\"courseId\":\"{{course_id}}\",\"semester\":\"2025 Spring\",\"academic_year\":\"2025\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"student_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Student\");",
+                    "}",
+                    "if (!pm.environment.get(\"course_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 201 or 200\", () => pm.expect(pm.response.code).to.be.oneOf([200,201]));",
+                    "var json = pm.response.json();",
+                    "pm.environment.set(\"course_registration_id\", json.id || json._id || json.data?.id || json.data?._id);",
+                    "pm.test(\"Registration ID captured\", () => pm.expect(pm.environment.get(\"course_registration_id\")).to.not.be.empty);"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET All Course Registrations",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/course-registrations"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (pm.environment.get('base_url').includes('5000')) {",
+                    "  pm.request.url = pm.request.url.toString().replace('/course-registrations', '/course-registrations/all');",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "GET Course Registration By ID",
+            "request": {
+                "method": "GET",
+                "url": "{{base_url}}/course-registrations/{{course_registration_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"course_registration_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course Registration\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                    "pm.test(\"Registration ID matches\", () => {",
+                    "  const json = pm.response.json();",
+                    "  const id = json.id || json._id || json.data?.id || json.data?._id;",
+                    "  pm.expect(id).to.eql(pm.environment.get(\"course_registration_id\"));",
+                    "});"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "PUT Update Course Registration",
+            "request": {
+                "method": "PUT",
+                "url": "{{base_url}}/course-registrations/{{course_registration_id}}",
+                "header": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+                ],
+                "body": {
+                "mode": "raw",
+                "raw": "{\"semester\":\"2025 Fall\"}"
+                }
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"course_registration_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course Registration\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                    ]
+                }
+                }
+            ]
+            },
+            {
+            "name": "DELETE Course Registration",
+            "request": {
+                "method": "DELETE",
+                "url": "{{base_url}}/course-registrations/{{course_registration_id}}"
+            },
+            "event": [
+                {
+                "listen": "prerequest",
+                "script": {
+                    "exec": [
+                    "if (!pm.environment.get(\"course_registration_id\")) {",
+                    "  postman.setNextRequest(\"POST Create Course Registration\");",
+                    "}"
+                    ]
+                }
+                },
+                {
+                "listen": "test",
+                "script": {
+                    "exec": [
+                    "pm.test(\"Status is 200 or 404\", () => pm.expect(pm.response.code).to.be.oneOf([200,404]));",
+                    "pm.environment.unset(\"course_registration_id\");"
+                    ]
+                }
+                }
+            ]
+            }
+        ]
+        }
+    ]
+}
