@@ -1,21 +1,55 @@
-# Node modules
-node_modules/
-
-# Environment variables
-.env
+# Node.js dependencies
+Backend-sql/node_modules/
+Backend-nosql/node_modules/
 
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS files
+# OS generated files
 .DS_Store
 Thumbs.db
 
-# Optional cache and build folders
-dist/
-build/
-.cache/
+# Docker artifacts
+**/data/
+**/tmp/
+**/dist/
+**/build/
+**/.docker/
+
+# Database dumps/backups (keep your seed scripts, ignore runtime dumps)
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.sql~
+*.dump
+
+# Environment files (allow .env to be committed)
+# .env
+
+# VSCode settings
+.vscode/
+
+# Benchmark outputs
+Benchmark/**/*.json
+!Benchmark/**/collection.json
+!Benchmark/**/env-*.json
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Misc
+.env.local
+.env.*.local
+
+# Ignore result files but keep templates
+Benchmark/**/sql_result.json
+Benchmark/**/nosql_result.json
+
+# Ignore OS swap files
+*.swp
+*.swo

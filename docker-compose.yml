@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: benchmarkdb
+      POSTGRES_USER: benchmarkuser
+      POSTGRES_PASSWORD: benchmarkpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./Backend-sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+  backend-sql:
+    build: ./Backend-sql
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./Backend-sql/.env
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./Backend-nosql/init.js:/docker-entrypoint-initdb.d/init.js # optional for seeding
+
+  backend-nosql:
+    build: ./Backend-nosql
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./Backend-nosql/.env

@@ -1,0 +1,2 @@
+newman run collection.json -e env-nosql.json --iteration-count 1 --reporters cli
+newman run collection.json -e env-sql.json --iteration-count 1 --reporters cli
