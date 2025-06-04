@@ -13,6 +13,7 @@ SQL_BASE_URL = "http://localhost:3000"
 NOSQL_BASE_URL = "http://localhost:4000"
 NUM_ITERATIONS_BATCH = 100 # Number of items for batch create/update/delete tests
 NUM_CONCURRENT_REQUESTS = 50 # Number of concurrent requests for load test
+DEFAULT_COURSE_CAPACITY = 1000 # Default capacity for courses created in this script
 
 # --- Helper Functions ---
 
@@ -64,7 +65,7 @@ def generate_lecturer_data(random_id):
         "department": random.choice(["Computer Science", "Information Systems", "Electrical Engineering"])
     }
 
-def generate_course_data(lecturer_id, random_id, prerequisites=None, for_nosql=False):
+def generate_course_data(lecturer_id, random_id, capacity=DEFAULT_COURSE_CAPACITY, prerequisites=None, for_nosql=False): # Added capacity with default
     """Generates unique course data."""
     if prerequisites is None:
         prerequisites = []
@@ -76,7 +77,8 @@ def generate_course_data(lecturer_id, random_id, prerequisites=None, for_nosql=F
             "credits": random.choice([2, 3, 4]),
             "semester": random.randint(1, 8),
             "lecturerId": lecturer_id,
-            "prerequisiteIds": prerequisites
+            "prerequisiteIds": prerequisites,
+            "capacity": capacity # Added capacity
         }
     else:
         return {
@@ -85,7 +87,8 @@ def generate_course_data(lecturer_id, random_id, prerequisites=None, for_nosql=F
             "credits": random.choice([2, 3, 4]),
             "semester": random.randint(1, 8),
             "lecturer_id": lecturer_id,
-            "prerequisiteIds": prerequisites
+            "prerequisiteIds": prerequisites,
+            "capacity": capacity # Added capacity
         }
 
 def generate_course_registration_data(student_id, course_id, for_nosql=False):
@@ -436,32 +439,32 @@ def cleanup_database(base_url):
     cleanup_results = []
 
     # Get all students and delete them (should cascade to registrations if configured)
-    _, _, all_students_response_json, _, _ = make_request("GET", f"{base_url}/students")
-    if all_students_response_json and all_students_response_json.get('data'):
+    _, success_students, all_students_response_json, _, _ = make_request("GET", f"{base_url}/students") # Corrected variable assignment
+    if success_students and all_students_response_json and all_students_response_json.get('data'):
         student_ids = [get_id_from_response({'data': s}) for s in all_students_response_json['data']]
         if student_ids:
             delete_student_results, _ = run_batch_delete_scenario("Cleanup: Delete Students", base_url, "/students", student_ids)
             cleanup_results.extend(delete_student_results)
     
     # Get all courses and delete them
-    _, _, all_courses_response_json, _, _ = make_request("GET", f"{base_url}/courses")
-    if all_courses_response_json and all_courses_response_json.get('data'):
+    _, success_courses, all_courses_response_json, _, _ = make_request("GET", f"{base_url}/courses") # Corrected variable assignment
+    if success_courses and all_courses_response_json and all_courses_response_json.get('data'):
         course_ids = [get_id_from_response({'data': c}) for c in all_courses_response_json['data']]
         if course_ids:
             delete_course_results, _ = run_batch_delete_scenario("Cleanup: Delete Courses", base_url, "/courses", course_ids)
             cleanup_results.extend(delete_course_results)
 
     # Get all lecturers and delete them
-    _, _, all_lecturers_response_json, _, _ = make_request("GET", f"{base_url}/lecturers")
-    if all_lecturers_response_json and all_lecturers_response_json.get('data'):
+    _, success_lecturers, all_lecturers_response_json, _, _ = make_request("GET", f"{base_url}/lecturers") # Corrected variable assignment
+    if success_lecturers and all_lecturers_response_json and all_lecturers_response_json.get('data'):
         lecturer_ids = [get_id_from_response({'data': l}) for l in all_lecturers_response_json['data']]
         if lecturer_ids:
             delete_lecturer_results, _ = run_batch_delete_scenario("Cleanup: Delete Lecturers", base_url, "/lecturers", lecturer_ids)
             cleanup_results.extend(delete_lecturer_results)
 
     # Get all users and delete them
-    _, _, all_users_response_json, _, _ = make_request("GET", f"{base_url}/users")
-    if all_users_response_json and all_users_response_json.get('data'):
+    _, success_users, all_users_response_json, _, _ = make_request("GET", f"{base_url}/users") # Corrected variable assignment
+    if success_users and all_users_response_json and all_users_response_json.get('data'):
         user_ids = [get_id_from_response({'data': u}) for u in all_users_response_json['data']]
         if user_ids:
             delete_user_results, _ = run_batch_delete_scenario("Cleanup: Delete Users", base_url, "/users", user_ids)
@@ -511,7 +514,7 @@ if __name__ == "__main__":
     if lecturer_ids_sql:
         course_results_sql, new_course_id_sql = run_test_scenario(
             "Setup: Create Course", SQL_BASE_URL, "POST", "/courses/create",
-            data_generator=lambda r_id: generate_course_data(lecturer_ids_sql[0], f"setup_sql_{r_id}"), num_requests=1
+            data_generator=lambda r_id: generate_course_data(lecturer_ids_sql[0], f"setup_sql_{r_id}, capacity=DEFAULT_COURSE_CAPACITY"), num_requests=1 # Pass capacity
         )
         all_results.extend(course_results_sql)
         if new_course_id_sql: course_ids_sql.extend(new_course_id_sql)
@@ -562,7 +565,7 @@ if __name__ == "__main__":
     if lecturer_ids_nosql:
         course_results_nosql, new_course_id_nosql = run_test_scenario(
             "Setup: Create Course", NOSQL_BASE_URL, "POST", "/courses/create",
-            data_generator=lambda r_id: generate_course_data(lecturer_ids_nosql[0], f"setup_nosql_{r_id}", for_nosql=True),
+            data_generator=lambda r_id: generate_course_data(lecturer_ids_nosql[0], f"setup_nosql_{r_id}", capacity=DEFAULT_COURSE_CAPACITY, for_nosql=True), # Pass capacity
             num_requests=1
         )
         all_results.extend(course_results_nosql)
@@ -603,7 +606,7 @@ if __name__ == "__main__":
     if user_ids_sql:
         batch_student_results_sql, created_student_ids_sql = run_batch_create_scenario(
             f"Batch Create Students ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/students/create",
-            generate_student_data, NUM_ITERATIONS_BATCH, user_ids_sql[0] # Positional args first
+            generate_student_data, user_ids_sql[0], num_items=NUM_ITERATIONS_BATCH # Corrected: positional arg before keyword
         )
         all_results.extend(batch_student_results_sql)
     else:
@@ -613,7 +616,7 @@ if __name__ == "__main__":
     if user_ids_nosql:
         batch_student_results_nosql, created_student_ids_nosql = run_batch_create_scenario(
             f"Batch Create Students ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/students/create",
-            generate_student_data, NUM_ITERATIONS_BATCH, user_ids_nosql[0], for_nosql=True
+            generate_student_data, user_ids_nosql[0], num_items=NUM_ITERATIONS_BATCH, for_nosql=True # Corrected: positional arg before keyword
         )
         all_results.extend(batch_student_results_nosql)
     else:
@@ -624,7 +627,7 @@ if __name__ == "__main__":
     if lecturer_ids_sql:
         batch_course_results_sql, created_course_ids_sql = run_batch_create_scenario(
             f"Batch Create Courses ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/courses/create",
-            generate_course_data, NUM_ITERATIONS_BATCH, lecturer_ids_sql[0]
+            generate_course_data, lecturer_ids_sql[0], num_items=NUM_ITERATIONS_BATCH, capacity=DEFAULT_COURSE_CAPACITY # Corrected: positional arg before keyword
         )
         all_results.extend(batch_course_results_sql)
     else:
@@ -634,7 +637,7 @@ if __name__ == "__main__":
     if lecturer_ids_nosql:
         batch_course_results_nosql, created_course_ids_nosql = run_batch_create_scenario(
             f"Batch Create Courses ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/courses/create",
-            generate_course_data, NUM_ITERATIONS_BATCH, lecturer_ids_nosql[0], for_nosql=True
+            generate_course_data, lecturer_ids_nosql[0], num_items=NUM_ITERATIONS_BATCH, capacity=DEFAULT_COURSE_CAPACITY, for_nosql=True # Corrected: positional arg before keyword
         )
         all_results.extend(batch_course_results_nosql)
     else:
@@ -645,7 +648,7 @@ if __name__ == "__main__":
     if created_user_ids_sql:
         update_user_results_sql, _ = run_batch_update_scenario(
             f"Batch Update Users ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/users",
-            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"}, # Added kwargs
+            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"},
             num_items=NUM_ITERATIONS_BATCH, ids_to_update=created_user_ids_sql
         )
         all_results.extend(update_user_results_sql)
@@ -655,7 +658,7 @@ if __name__ == "__main__":
     if created_user_ids_nosql:
         update_user_results_nosql, _ = run_batch_update_scenario(
             f"Batch Update Users ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/users",
-            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"}, # Added kwargs
+            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"},
             num_items=NUM_ITERATIONS_BATCH, ids_to_update=created_user_ids_nosql
         )
         all_results.extend(update_user_results_nosql)
