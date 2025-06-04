@@ -1,14 +1,13 @@
 const Student = require("../models/StudentModel");
 const User = require("../models/UserModel");
-const CourseRegistration = require("../models/CourseRegModel"); // Corrected model name
+const CourseRegistration = require("../models/CourseRegModel");
 const Course = require("../models/CourseModel");
 const mongoose = require('mongoose');
 
 async function createStudent(req, res) {
     try {
-        const { user, nim, name, major, semester } = req.body;
+        const { user, nim, name, major, semester, student_status } = req.body; // Added student_status
 
-        // Validate and cast user ID to ObjectId
         if (!user) {
             return res.status(400).json({ success: false, message: "User ID is required." });
         }
@@ -17,7 +16,7 @@ async function createStudent(req, res) {
         }
         const userIdAsObjectId = new mongoose.Types.ObjectId(user);
         
-        const student = new Student({ user: userIdAsObjectId, nim, name, major, semester });
+        const student = new Student({ user: userIdAsObjectId, nim, name, major, semester, student_status }); // Pass student_status
         const saved = await student.save();
         res.status(201).json({ success: true, data: saved });
     } catch (err) {
@@ -48,15 +47,16 @@ async function getStudentById(req, res) {
 
 async function updateStudent(req, res) {
     try {
-        const { user } = req.body;
+        const { user, student_status } = req.body; // Added student_status
         let updateBody = { ...req.body };
 
-        if (user !== undefined) { // Only process if user field is provided in update
+        if (user !== undefined) {
             if (!mongoose.Types.ObjectId.isValid(user)) {
                 return res.status(400).json({ success: false, message: "Invalid user ID format for update." });
             }
             updateBody.user = new mongoose.Types.ObjectId(user);
         }
+        // student_status is already in updateBody via ...req.body
 
         const updated = await Student.findByIdAndUpdate(req.params.id, updateBody, { new: true });
         res.status(200).json({ success: true, data: updated });
@@ -119,6 +119,7 @@ async function getStudentsWithDetailsAndCourses(req, res) {
                     student_name: { $first: '$name' },
                     major: { $first: '$major' },
                     semester: { $first: '$semester' },
+                    student_status: { $first: '$student_status' }, // Added student_status
                     username: { $first: '$userDetails.username' },
                     email: { $first: '$userDetails.email' },
                     registered_courses: {
@@ -148,6 +149,7 @@ async function getStudentsWithDetailsAndCourses(req, res) {
                     student_name: 1,
                     major: 1,
                     semester: 1,
+                    student_status: 1, // Added student_status
                     username: 1,
                     email: 1,
                     registered_courses: {

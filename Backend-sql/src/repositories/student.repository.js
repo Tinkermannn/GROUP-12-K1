@@ -1,13 +1,13 @@
 const db = require('../database/pg.database');
 
 exports.createStudent = async (studentData) => {
-    const { user_id, nim, name, major, semester } = studentData;
+    const { user_id, nim, name, major, semester, student_status } = studentData; // Added student_status
 
     const result = await db.query(
-        `INSERT INTO students (user_id, nim, name, major, semester) 
-         VALUES ($1, $2, $3, $4, $5)
+        `INSERT INTO students (user_id, nim, name, major, semester, student_status)
+         VALUES ($1, $2, $3, $4, $5, $6)
          RETURNING id`,
-        [user_id, nim, name, major, semester]
+        [user_id, nim, name, major, semester, student_status] // Added student_status
     );
 
     return exports.getStudentById(result.rows[0].id);
@@ -46,8 +46,7 @@ exports.findByNim = async (nim) => {
 };
 
 exports.updateStudent = async (studentData) => {
-    const { id, user_id, nim, name, major, semester } = studentData;
-
+    const { id, user_id, nim, name, major, semester, student_status } = studentData; // Added student_status
     const updateFields = [];
     const updateValues = [];
     let paramIndex = 1;
@@ -71,6 +70,10 @@ exports.updateStudent = async (studentData) => {
     if (semester !== undefined) {
         updateFields.push(`semester = $${paramIndex++}`);
         updateValues.push(semester);
+    }
+    if (student_status !== undefined) { // Added student_status update
+        updateFields.push(`student_status = $${paramIndex++}`);
+        updateValues.push(student_status);
     }
 
     if (updateFields.length === 0) {
@@ -114,7 +117,7 @@ exports.checkUserExists = async (userId) => {
     return result.rows.length > 0;
 };
 
-// NEW COMPLEX QUERY: Get All Students with Full User Details and their Registered Courses
+// Get All Students with Full User Details and their Registered Courses (existing complex query)
 exports.getStudentsWithDetailsAndCourses = async () => {
     const query = `
         SELECT
@@ -123,6 +126,7 @@ exports.getStudentsWithDetailsAndCourses = async () => {
             s.name AS student_name,
             s.major,
             s.semester,
+            s.student_status, -- Added student_status
             u.username,
             u.email,
             COALESCE(
@@ -149,7 +153,7 @@ exports.getStudentsWithDetailsAndCourses = async () => {
         LEFT JOIN
             courses c ON cr.course_id = c.id
         GROUP BY
-            s.id, s.nim, s.name, s.major, s.semester, u.username, u.email
+            s.id, s.nim, s.name, s.major, s.semester, s.student_status, u.username, u.email -- Added student_status to GROUP BY
         ORDER BY
             s.name;
     `;

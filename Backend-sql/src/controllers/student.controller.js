@@ -3,7 +3,7 @@ const baseResponse = require('../utils/baseResponse.util');
 
 exports.createStudent = async (req, res, next) => {
     try {
-        const { user_id, nim, name, major, semester } = req.body;
+        const { user_id, nim, name, major, semester, student_status } = req.body; // Added student_status
         
         // Validate required fields
         if (!user_id || !nim || !name || !major || !semester) {
@@ -28,7 +28,8 @@ exports.createStudent = async (req, res, next) => {
             nim,
             name,
             major,
-            semester
+            semester,
+            student_status // Pass student_status
         });
         
         return baseResponse(res, true, 201, "Student created", student);
@@ -63,6 +64,7 @@ exports.getStudentById = async (req, res, next) => {
 exports.updateStudent = async (req, res, next) => {
     try {
         const studentId = req.params.id;
+        const { nim, student_status } = req.body; // Added student_status
         
         // Check if student exists
         const existingStudent = await studentRepository.getStudentById(studentId);
@@ -71,8 +73,8 @@ exports.updateStudent = async (req, res, next) => {
         }
         
         // If NIM is being changed, check if it's already used
-        if (req.body.nim && req.body.nim !== existingStudent.nim) {
-            const nimExists = await studentRepository.findByNim(req.body.nim);
+        if (nim && nim !== existingStudent.nim) {
+            const nimExists = await studentRepository.findByNim(nim);
             if (nimExists) {
                 return baseResponse(res, false, 400, "NIM already registered", null);
             }
@@ -81,7 +83,8 @@ exports.updateStudent = async (req, res, next) => {
         // Update student
         const updatedStudent = await studentRepository.updateStudent({
             id: studentId,
-            ...req.body
+            ...req.body,
+            student_status // Pass student_status
         });
         
         return baseResponse(res, true, 200, "Student updated", updatedStudent);
@@ -107,7 +110,7 @@ exports.deleteStudent = async (req, res, next) => {
     }
 };
 
-// NEW COMPLEX QUERY: Get All Students with Full User Details and their Registered Courses
+// Get All Students with Full User Details and their Registered Courses (existing complex query)
 exports.getStudentsWithDetailsAndCourses = async (req, res, next) => {
     try {
         const students = await studentRepository.getStudentsWithDetailsAndCourses();

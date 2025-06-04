@@ -24,6 +24,10 @@ const studentSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        student_status: { // NEW FIELD: Student status
+            type: String,
+            default: 'active'
+        }
     },
     { timestamps: true }
 );
