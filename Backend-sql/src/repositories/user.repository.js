@@ -4,6 +4,22 @@ const bcrypt = require('bcrypt');
 exports.createUser = async (userData) => {
     const { username, email, password, role } = userData;
 
+    // Check if username already exists
+    const usernameExists = await exports.findByUsername(username);
+    if (usernameExists) {
+        const error = new Error('Username sudah terdaftar');
+        error.statusCode = 400; // Custom property to carry status code
+        throw error;
+    }
+
+    // Check if email already exists
+    const emailExists = await exports.findByEmail(email);
+    if (emailExists) {
+        const error = new Error('Email sudah terdaftar');
+        error.statusCode = 400; // Custom property to carry status code
+        throw error;
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -14,8 +30,16 @@ exports.createUser = async (userData) => {
     `;
     const values = [username, email, hashedPassword, role];
 
-    const { rows } = await db.query(query, values);
-    return rows[0];
+    try {
+        const { rows } = await db.query(query, values);
+        return rows[0];
+    } catch (err) {
+        // This catch is for other potential database errors, less likely with pre-checks
+        console.error("Database error during user creation:", err);
+        const error = new Error('Gagal membuat user karena kesalahan database.');
+        error.statusCode = 500;
+        throw error;
+    }
 };
 
 exports.getAllUsers = async () => {
@@ -39,24 +63,40 @@ exports.getUserById = async (id) => {
 };
 
 exports.findByUsername = async (username) => {
-    const { rows } = await db.query(
-        `SELECT id FROM users WHERE username = $1`,
-        [username]
-    );
-    return rows.length > 0;
+    const query = `
+        SELECT id, username, email, role, created_at, updated_at
+        FROM users
+        WHERE username = $1
+    `;
+    const { rows } = await db.query(query, [username]);
+    return rows.length > 0 ? rows[0] : null;
 };
 
+// ADDED: findByEmail function
 exports.findByEmail = async (email) => {
-    const { rows } = await db.query(
-        `SELECT id FROM users WHERE email = $1`,
-        [email]
-    );
-    return rows.length > 0;
+    const query = `
+        SELECT id, username, email, role, created_at, updated_at
+        FROM users
+        WHERE email = $1
+    `;
+    const { rows } = await db.query(query, [email]);
+    return rows.length > 0 ? rows[0] : null;
 };
 
-exports.updateUser = async (userData) => {
-    const { id, username, email, password, role } = userData;
+// NEW FUNCTION: findUserByEmailWithPassword for login
+exports.findUserByEmailWithPassword = async (email) => {
+    const query = `
+        SELECT id, username, email, password, role, created_at, updated_at
+        FROM users
+        WHERE email = $1
+    `;
+    const { rows } = await db.query(query, [email]);
+    return rows.length > 0 ? rows[0] : null;
+};
 
+
+exports.updateUser = async (id, userData) => {
+    const { username, email, password, role } = userData;
     const updateFields = [];
     const updateValues = [];
     let paramIndex = 1;
@@ -87,31 +127,32 @@ exports.updateUser = async (userData) => {
         return exports.getUserById(id);
     }
 
+    // Always update the 'updated_at' timestamp
     updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
-    updateValues.push(id);
-
+    
+    // The ID for the WHERE clause is the last parameter
     const query = `
         UPDATE users
         SET ${updateFields.join(', ')}
         WHERE id = $${paramIndex}
     `;
-    await db.query(query, updateValues);
+    updateValues.push(id); 
 
-    return exports.getUserById(id);
+    try {
+        await db.query(query, updateValues);
+        return exports.getUserById(id);
+    } catch (err) {
+        console.error("Database error during user update:", err);
+        const error = new Error('Gagal mengupdate user karena kesalahan database.');
+        error.statusCode = 500;
+        throw error;
+    }
 };
 
 exports.deleteUser = async (id) => {
     const user = await exports.getUserById(id);
     if (!user) return null;
 
-    await db.query(`DELETE FROM users WHERE id = $1`, [id]);
-    return user;
-};
-
-exports.findUserByEmailWithPassword = async (email) => {
-    const { rows } = await db.query(
-        `SELECT * FROM users WHERE email = $1`,
-        [email]
-    );
-    return rows.length > 0 ? rows[0] : null;
+    await db.query('DELETE FROM users WHERE id = $1', [id]);
+    return user; // Return the deleted user's data
 };

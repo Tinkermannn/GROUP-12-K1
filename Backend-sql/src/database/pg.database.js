@@ -7,26 +7,18 @@ const pool = new Pool({
     max: 100,                
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 5000,
-    ssl: { rejectUnauthorized: false },
+    //ssl: { rejectUnauthorized: false },
 });
 
-const connect = async () => {
-    try {
-        await pool.connect();
-        console.log("Connected to database")
-    } catch (error) {
-        console.error("Error connecting to database", error);
-    }   
-}
+// Removed connect() and its call. Let the pool handle connections.
 
-connect();
-    
 const query = async (text, params) => {
     try {
         const res = await pool.query(text, params);
         return res;
     } catch (error) {
         console.error("Error executing query", error);
+        throw error; // Let the caller handle the error
     }
 }
 

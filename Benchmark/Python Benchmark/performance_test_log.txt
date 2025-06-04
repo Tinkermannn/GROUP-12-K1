@@ -1,0 +1,137 @@
+--- SQL Backend Setup: Creating initial entities ---
+
+--- Running Setup: Create User on http://localhost:3000 (1 requests) ---
+
+--- Running Setup: Create Lecturer on http://localhost:3000 (1 requests) ---
+Error in Setup: Create Lecturer (Request 1): invalid input syntax for type integer: "NIDNsetup_sql_6515243_0_mub" (Status: 500)
+
+--- Running Setup: Create Student on http://localhost:3000 (1 requests) ---
+
+--- NoSQL Backend Setup: Creating initial entities ---
+
+--- Running Setup: Create User on http://localhost:4000 (1 requests) ---
+
+--- Running Setup: Create Lecturer on http://localhost:4000 (1 requests) ---
+
+--- Running Setup: Create Course on http://localhost:4000 (1 requests) ---
+Error in Setup: Create Course (Request 1): Course validation failed: lecturer: Path `lecturer` is required. (Status: 400)
+
+--- Running Setup: Create Student on http://localhost:4000 (1 requests) ---
+Error in Setup: Create Student (Request 1): Student validation failed: user: Path `user` is required. (Status: 400)
+
+--- Running Batch Operations ---
+
+--- Running Batch Create Users (100) on http://localhost:3000 (100 items) ---
+
+--- Running Batch Create Users (100) on http://localhost:4000 (100 items) ---
+
+--- Running Complex Queries ---
+
+--- Running Complex Query: Students with Details & Courses on http://localhost:3000 (1 requests) ---
+
+--- Running Complex Query: Students with Details & Courses on http://localhost:4000 (1 requests) ---
+Error in Complex Query: Students with Details & Courses (Request 1): Cannot read properties of undefined (reading 'userId') (Status: 500)
+
+--- Running Complex Query: Courses with Lecturer & Prerequisites on http://localhost:3000 (1 requests) ---
+
+--- Running Complex Query: Courses with Lecturer & Prerequisites on http://localhost:4000 (1 requests) ---
+Error in Complex Query: Courses with Lecturer & Prerequisites (Request 1): Cannot read properties of undefined (reading 'userId') (Status: 500)
+
+--- Running Complex Query: Lecturers with Course Count on http://localhost:3000 (1 requests) ---
+
+--- Running Complex Query: Lecturers with Course Count on http://localhost:4000 (1 requests) ---
+Error in Complex Query: Lecturers with Course Count (Request 1): Cannot read properties of undefined (reading 'userId') (Status: 500)
+
+--- Running Concurrent Requests ---
+
+--- Running Concurrent Get All Users (50) on http://localhost:3000 (50 concurrent requests) ---
+
+--- Running Concurrent Get All Users (50) on http://localhost:4000 (50 concurrent requests) ---
+Error in Concurrent Get All Users (50) (Request 1): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 2): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 3): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 4): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 5): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 6): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 7): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 8): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 9): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 10): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 11): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 12): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 13): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 14): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 15): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 16): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 17): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 18): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 19): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 20): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 21): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 22): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 23): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 24): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 25): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 26): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 27): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 28): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 29): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 30): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 31): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 32): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 33): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 34): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 35): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 36): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 37): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 38): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 39): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 40): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 41): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 42): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 43): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 44): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 45): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 46): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 47): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 48): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 49): Cannot read properties of undefined (reading 'userId') (Status: 500)
+Error in Concurrent Get All Users (50) (Request 50): Cannot read properties of undefined (reading 'userId') (Status: 500)
+
+--- Raw Results Dataframe (Filtered) ---
+                                  scenario  ...                                            message
+0                 Batch Create Users (100)  ...                               User berhasil dibuat
+1                 Batch Create Users (100)  ...                               User berhasil dibuat
+2                 Batch Create Users (100)  ...                               User berhasil dibuat
+3                 Batch Create Users (100)  ...                               User berhasil dibuat
+4                 Batch Create Users (100)  ...                               User berhasil dibuat
+..                                     ...  ...                                                ...
+305          Concurrent Get All Users (50)  ...  Cannot read properties of undefined (reading '...
+306          Concurrent Get All Users (50)  ...  Cannot read properties of undefined (reading '...
+307          Concurrent Get All Users (50)  ...  Cannot read properties of undefined (reading '...
+308          Concurrent Get All Users (50)  ...  Cannot read properties of undefined (reading '...
+309  Concurrent Get All Users (50) (Total)  ...              Total time for 50 concurrent requests
+
+[310 rows x 9 columns]
+
+--- Aggregated Results (Mean, Median, Std Dev) ---
+                                            scenario               base_url        mean  ...        std      min       max
+0                           Batch Create Users (100)  http://localhost:3000   58.797238  ...   7.170205  51.5773   73.4904
+1                           Batch Create Users (100)  http://localhost:4000  104.658618  ...   7.087680  96.1365  119.6141
+2  Complex Query: Courses with Lecturer & Prerequ...  http://localhost:3000    9.287400  ...        NaN   9.2874    9.2874
+3  Complex Query: Courses with Lecturer & Prerequ...  http://localhost:4000    6.320500  ...        NaN   6.3205    6.3205
+4         Complex Query: Lecturers with Course Count  http://localhost:3000    8.788300  ...        NaN   8.7883    8.7883
+5         Complex Query: Lecturers with Course Count  http://localhost:4000    6.702000  ...        NaN   6.7020    6.7020
+6     Complex Query: Students with Details & Courses  http://localhost:3000   21.486700  ...        NaN  21.4867   21.4867
+7     Complex Query: Students with Details & Courses  http://localhost:4000    7.261200  ...        NaN   7.2612    7.2612
+8                      Concurrent Get All Users (50)  http://localhost:3000   54.652700  ...  13.107178  13.4410   71.8691
+9                      Concurrent Get All Users (50)  http://localhost:4000   20.864444  ...   4.719321  10.6324   32.9672
+
+[10 rows x 7 columns]
+
+--- Total Times for Batch and Concurrent Scenarios ---
+                                scenario               base_url  total_time_ms
+0       Batch Create Users (100) (Total)  http://localhost:3000      5890.4802
+1       Batch Create Users (100) (Total)  http://localhost:4000     10477.5058
+2  Concurrent Get All Users (50) (Total)  http://localhost:3000       144.9538
+3  Concurrent Get All Users (50) (Total)  http://localhost:4000       102.8404

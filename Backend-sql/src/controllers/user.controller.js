@@ -91,9 +91,8 @@ exports.updateUser = async (req, res, next) => {
             return baseResponse(res, false, 400, "Password harus minimal 8 karakter dan mengandung huruf, angka, dan karakter khusus", null);
         }
         
-        // Update user
-        const updatedUser = await userRepository.updateUser({
-            id: userId,
+        // Update user - CORRECTED CALL
+        const updatedUser = await userRepository.updateUser(userId, { // <--- THIS LINE WAS CHANGED
             username,
             email,
             password,

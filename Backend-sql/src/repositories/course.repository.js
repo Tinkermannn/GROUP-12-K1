@@ -1,31 +1,23 @@
 const db = require('../database/pg.database');
 
-exports.createCourse = async (course) => {
-    // Insert the course
-    const insertCourseQuery = `
-        INSERT INTO courses (course_code, name, credits, semester, lecturer_id) 
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING id
-    `;
-    const courseResult = await db.query(insertCourseQuery, [
-        course.course_code,
-        course.name,
-        course.credits,
-        course.semester,
-        course.lecturer_id
-    ]);
+exports.createCourse = async (courseData) => {
+    const { course_code, name, credits, semester, lecturer_id, prerequisites } = courseData;
 
-    const courseId = courseResult.rows[0].id;
+    const result = await db.query(
+        `INSERT INTO courses (course_code, name, credits, semester, lecturer_id)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id`,
+        [course_code, name, credits, semester, lecturer_id]
+    );
+
+    const courseId = result.rows[0].id;
 
     // Insert prerequisites if any
-    if (course.prerequisites && course.prerequisites.length > 0) {
-        const values = course.prerequisites
-            .map((_, idx) => `($1, $${idx + 2})`)
-            .join(', ');
-
+    if (prerequisites && prerequisites.length > 0) {
+        const prerequisiteValues = prerequisites.map(prereqId => `(${courseId}, ${prereqId})`).join(',');
         await db.query(
-            `INSERT INTO course_prerequisites (course_id, prerequisite_course_id) VALUES ${values}`,
-            [courseId, ...course.prerequisites]
+            `INSERT INTO course_prerequisites (course_id, prerequisite_course_id)
+             VALUES ${prerequisiteValues}`
         );
     }
 
@@ -33,110 +25,139 @@ exports.createCourse = async (course) => {
 };
 
 exports.getAllCourses = async () => {
-    const result = await db.query(`
-        SELECT c.*, l.name AS lecturer_name, l.nidn, l.department
-        FROM courses c
-        JOIN lecturers l ON c.lecturer_id = l.id
-        ORDER BY c.updated_at DESC
-    `);
-    const courses = result.rows;
-
-    for (const course of courses) {
-        const prerequisitesResult = await db.query(
-            `SELECT c.* 
-             FROM courses c
-             JOIN course_prerequisites cp ON c.id = cp.prerequisite_course_id
-             WHERE cp.course_id = $1`,
-            [course.id]
-        );
-        course.prerequisites = prerequisitesResult.rows;
-    }
-
-    return courses;
+    const result = await db.query(
+        `SELECT c.*, l.name as lecturer_name, l.department as lecturer_department
+         FROM courses c
+         JOIN lecturers l ON c.lecturer_id = l.id
+         ORDER BY c.updated_at DESC`
+    );
+    return result.rows;
 };
 
 exports.getCourseById = async (id) => {
-    const courseResult = await db.query(
-        `SELECT c.*, l.name AS lecturer_name, l.nidn, l.department
+    const result = await db.query(
+        `SELECT c.*, l.name as lecturer_name, l.department as lecturer_department
          FROM courses c
          JOIN lecturers l ON c.lecturer_id = l.id
          WHERE c.id = $1`,
         [id]
     );
+    const course = result.rows[0] || null;
 
-    if (courseResult.rows.length === 0) return null;
-
-    const course = courseResult.rows[0];
-
-    const prerequisitesResult = await db.query(
-        `SELECT c.*
-         FROM courses c
-         JOIN course_prerequisites cp ON c.id = cp.prerequisite_course_id
-         WHERE cp.course_id = $1`,
-        [id]
-    );
-
-    course.prerequisites = prerequisitesResult.rows;
-
+    if (course) {
+        const prereqResult = await db.query(
+            `SELECT cp.prerequisite_course_id, c.name as prerequisite_name
+             FROM course_prerequisites cp
+             JOIN courses c ON cp.prerequisite_course_id = c.id
+             WHERE cp.course_id = $1`,
+            [id]
+        );
+        course.prerequisites = prereqResult.rows;
+    }
     return course;
 };
 
-exports.updateCourse = async (course) => {
+exports.updateCourse = async (courseData) => {
+    const { id, course_code, name, credits, semester, lecturer_id, prerequisites } = courseData;
+    const updateFields = [];
+    const updateValues = [];
+    let paramIndex = 1;
+
+    if (course_code !== undefined) {
+        updateFields.push(`course_code = $${paramIndex++}`);
+        updateValues.push(course_code);
+    }
+    if (name !== undefined) {
+        updateFields.push(`name = $${paramIndex++}`);
+        updateValues.push(name);
+    }
+    if (credits !== undefined) {
+        updateFields.push(`credits = $${paramIndex++}`);
+        updateValues.push(credits);
+    }
+    if (semester !== undefined) {
+        updateFields.push(`semester = $${paramIndex++}`);
+        updateValues.push(semester);
+    }
+    if (lecturer_id !== undefined) {
+        updateFields.push(`lecturer_id = $${paramIndex++}`);
+        updateValues.push(lecturer_id);
+    }
+
+    if (updateFields.length === 0 && prerequisites === undefined) {
+        return exports.getCourseById(id);
+    }
+
+    updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
+    updateValues.push(id);
+
     await db.query(
-        `UPDATE courses 
-         SET course_code = $1, name = $2, credits = $3, semester = $4, lecturer_id = $5, updated_at = CURRENT_TIMESTAMP
-         WHERE id = $6`,
-        [
-            course.course_code,
-            course.name,
-            course.credits,
-            course.semester,
-            course.lecturer_id,
-            course.id
-        ]
+        `UPDATE courses
+         SET ${updateFields.join(', ')}
+         WHERE id = $${paramIndex}`,
+        updateValues
     );
 
-    if (course.prerequisites !== undefined) {
-        await db.query(`DELETE FROM course_prerequisites WHERE course_id = $1`, [course.id]);
-
-        if (course.prerequisites.length > 0) {
-            const values = course.prerequisites
-                .map((_, idx) => `($1, $${idx + 2})`)
-                .join(', ');
-
+    // Handle prerequisites update (delete existing, insert new)
+    if (prerequisites !== undefined) {
+        await db.query(`DELETE FROM course_prerequisites WHERE course_id = $1`, [id]);
+        if (prerequisites.length > 0) {
+            const prerequisiteValues = prerequisites.map(prereqId => `(${id}, ${prereqId})`).join(',');
             await db.query(
-                `INSERT INTO course_prerequisites (course_id, prerequisite_course_id) VALUES ${values}`,
-                [course.id, ...course.prerequisites]
+                `INSERT INTO course_prerequisites (course_id, prerequisite_course_id)
+                 VALUES ${prerequisiteValues}`
             );
         }
     }
 
-    return exports.getCourseById(course.id);
+    return exports.getCourseById(id);
 };
 
 exports.deleteCourse = async (id) => {
     const course = await exports.getCourseById(id);
-    if (!course) return null;
-
+    if (!course) {
+        return null;
+    }
     await db.query(
-        `DELETE FROM course_prerequisites WHERE course_id = $1 OR prerequisite_course_id = $1`,
+        `DELETE FROM courses WHERE id = $1`,
         [id]
     );
-
-    await db.query(`DELETE FROM courses WHERE id = $1`, [id]);
-
     return course;
 };
 
-exports.findByCourseIds = async (courseIds) => {
-    if (courseIds.length === 0) return [];
-
-    const placeholders = courseIds.map((_, i) => `$${i + 1}`).join(', ');
-
-    const result = await db.query(
-        `SELECT * FROM courses WHERE id IN (${placeholders})`,
-        courseIds
-    );
-
+// NEW COMPLEX QUERY: Get All Courses with Lecturer Details and Prerequisite Course Names
+exports.getCoursesWithDetails = async () => {
+    const query = `
+        SELECT
+            c.id,
+            c.course_code,
+            c.name AS course_name,
+            c.credits,
+            c.semester,
+            l.name AS lecturer_name,
+            l.department AS lecturer_department,
+            COALESCE(
+                json_agg(
+                    json_build_object(
+                        'id', cp.prerequisite_course_id,
+                        'name', pc.name
+                    )
+                ) FILTER (WHERE pc.id IS NOT NULL),
+                '[]'
+            ) AS prerequisites
+        FROM
+            courses c
+        JOIN
+            lecturers l ON c.lecturer_id = l.id
+        LEFT JOIN
+            course_prerequisites cp ON c.id = cp.course_id
+        LEFT JOIN
+            courses pc ON cp.prerequisite_course_id = pc.id
+        GROUP BY
+            c.id, c.course_code, c.name, c.credits, c.semester, l.name, l.department
+        ORDER BY
+            c.name;
+    `;
+    const result = await db.query(query);
     return result.rows;
 };

@@ -1,21 +1,15 @@
-// routes/studentRoutes.js
-const express = require("express");
-const studentRepo = require("../repositories/repository.student");
+const express = require('express');
 const router = express.Router();
+const studentRepository = require('../repositories/repository.student'); // Using repository directly as per your structure
 
-// Get all students
-router.get("/", studentRepo.getAllStudents);
+// Basic CRUD routes
+router.post('/create', studentRepository.createStudent);
+router.get('/', studentRepository.getAllStudents);
+router.get('/:id', studentRepository.getStudentById);
+router.put('/:id', studentRepository.updateStudent);
+router.delete('/:id', studentRepository.deleteStudent);
 
-// Get student by ID
-router.get("/:id", studentRepo.getStudentById);
-
-// Add new student
-router.post("/create", studentRepo.createStudent);
-
-// Update student by ID
-router.put("/:id", studentRepo.updateStudent);
-
-// Delete student by ID
-router.delete("/:id", studentRepo.deleteStudent);
+// NEW COMPLEX QUERY ROUTE
+router.get('/details/full', studentRepository.getStudentsWithDetailsAndCourses);
 
 module.exports = router;

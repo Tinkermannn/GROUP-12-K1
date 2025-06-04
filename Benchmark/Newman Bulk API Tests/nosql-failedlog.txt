@@ -1,0 +1,3477 @@
+Running NoSQL Backend Benchmark...
+newman
+
+University API Benchmark - Fixed
+
+Iteration 1/50
+
+□ Users
+└ Create User
+  ┌
+  │ 'Current randomInt: 6920601'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 159ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1763641'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 10ms]
+  1. Status is 200
+  2. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 7115205'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 7ms]
+  3. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 2565971'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 7ms]
+  4. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 2/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 3416973'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 102ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 402366'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 9ms]
+  5. Status is 200
+  6. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5011892'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+  7. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 3543961'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+  8. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 3/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 7117626'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 104ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 796727'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+  9. Status is 200
+ 10. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 2896749'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 6ms]
+ 11. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 7854004'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 12. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 4/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 838354'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 108ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9489487'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+ 13. Status is 200
+ 14. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 806790'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 15. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 5621479'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+ 16. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 5/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 5301264'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 101ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9523243'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 9ms]
+ 17. Status is 200
+ 18. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 9305458'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 19. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 1647786'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+ 20. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 6/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 2874669'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 102ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9974992'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 21. Status is 200
+ 22. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 2939018'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 23. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 1458971'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 24. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 7/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 919832'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5418647'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 25. Status is 200
+ 26. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 1658805'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 27. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 1921988'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+ 28. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 8/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8731533'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 104ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 8157329'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 29. Status is 200
+ 30. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8941640'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+ 31. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 258624'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 32. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 9/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 6014643'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 101ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 4079728'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+ 33. Status is 200
+ 34. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 9104172'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 35. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 2703685'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+ 36. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 10/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9749305'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9980154'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 8ms]
+ 37. Status is 200
+ 38. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 6817213'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+ 39. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 9867031'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 40. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 11/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8258627'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 112ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1529978'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+ 41. Status is 200
+ 42. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 7105326'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 43. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6564807'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 44. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 12/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9945356'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 100ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9977233'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 45. Status is 200
+ 46. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 9070370'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 47. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8632062'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+ 48. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 13/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4701396'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 97ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 8027435'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 8ms]
+ 49. Status is 200
+ 50. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8372425'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 51. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 3859100'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+ 52. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 14/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4694251'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 7832669'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 53. Status is 200
+ 54. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 4949441'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 55. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6998610'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 56. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 15/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8982500'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 97ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5470425'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+ 57. Status is 200
+ 58. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5578945'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 59. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 3533845'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 60. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 16/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 1747308'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9390386'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 61. Status is 200
+ 62. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 7842131'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+ 63. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 1546916'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 64. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 17/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 296365'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 100ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1091296'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+ 65. Status is 200
+ 66. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 1605669'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 67. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 9541982'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 68. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 18/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4192605'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 101ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 2631193'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+ 69. Status is 200
+ 70. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5232385'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 71. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 1234383'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 72. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 19/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4387674'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5122172'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+ 73. Status is 200
+ 74. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8034182'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 75. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 7927185'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 76. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 20/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 7675617'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 103ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 2224034'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 77. Status is 200
+ 78. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8885590'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 79. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 4532112'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 7ms]
+ 80. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 21/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 5765871'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 101ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 7846487'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 81. Status is 200
+ 82. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 7847902'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+ 83. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6471209'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+ 84. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 22/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9916435'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1466697'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+ 85. Status is 200
+ 86. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8823380'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+ 87. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6487610'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 6ms]
+ 88. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 23/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 6095689'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 96ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 2253147'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+ 89. Status is 200
+ 90. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 9870240'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 91. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6253508'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+ 92. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 24/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 1913302'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 100ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 6349162'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 4ms]
+ 93. Status is 200
+ 94. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 6167798'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+ 95. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8349849'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+ 96. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 25/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 1415279'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 97ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 3281800'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+ 97. Status is 200
+ 98. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 4539920'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+ 99. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 1670521'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+100. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 26/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 652423'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5635278'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+101. Status is 200
+102. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8697386'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+103. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 682384'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+104. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 27/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9330535'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 97ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 4153813'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+105. Status is 200
+106. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5737969'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+107. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 5491798'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+108. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 28/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8997135'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 4419782'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+109. Status is 200
+110. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 6003270'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+111. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6806248'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+112. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 29/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 1006338'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 96ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5669916'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+113. Status is 200
+114. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 3565832'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+115. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 2938499'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+116. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 30/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9359277'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 3562346'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+117. Status is 200
+118. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5046685'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+119. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8350766'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+120. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 31/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8020064'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 8092935'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+121. Status is 200
+122. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 9773628'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+123. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 4903738'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+124. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 32/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9405039'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 8708943'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+125. Status is 200
+126. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 7384553'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+127. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 7976646'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+128. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 33/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9731807'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 97ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 4091251'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+129. Status is 200
+130. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 1426811'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+131. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 2657921'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+132. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 34/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8340928'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 99ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 8446173'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+133. Status is 200
+134. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 4350827'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+135. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 4622459'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+136. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 35/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8760901'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 104ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 6684523'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+137. Status is 200
+138. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 7791179'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+139. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 9054916'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+140. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 36/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 7863740'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5588267'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 8ms]
+141. Status is 200
+142. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 4419197'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+143. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 7350235'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+144. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 37/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 5846279'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 100ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 22840'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+145. Status is 200
+146. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5832262'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+147. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 4603284'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+148. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 38/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8079530'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 104ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 7032944'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+149. Status is 200
+150. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 4445996'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+151. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 5732165'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+152. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 39/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 5310249'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 90736'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+153. Status is 200
+154. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5394475'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+155. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 7289911'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+156. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 40/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 180125'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5906532'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 5ms]
+157. Status is 200
+158. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 1067660'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+159. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 9348738'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 2ms]
+160. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 41/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8129589'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 96ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 3364940'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+161. Status is 200
+162. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5359289'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 4ms]
+163. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6848655'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+164. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 42/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4673476'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 97ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 3089522'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+165. Status is 200
+166. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 9663803'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 2ms]
+167. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8259841'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 4ms]
+168. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 43/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 9461983'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 9289495'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+169. Status is 200
+170. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 6950753'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 8ms]
+171. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8525941'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 3ms]
+172. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 44/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 6902640'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1339526'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+173. Status is 200
+174. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 1152301'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+175. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 2299398'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+176. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 45/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 8773252'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 96ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5137645'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 8ms]
+177. Status is 200
+178. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 2329334'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+179. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8370044'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 6ms]
+180. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 46/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 1768320'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 95ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 4568294'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 9ms]
+181. Status is 200
+182. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8765708'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+183. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 3735445'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+184. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 47/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 3011172'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 96ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1359369'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+185. Status is 200
+186. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 8925655'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+187. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 6186774'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 6ms]
+188. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 48/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4131358'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 112ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 2831192'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+189. Status is 200
+190. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 5732820'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+191. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 4745842'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+192. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 49/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 4398044'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 101ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 1613581'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 7ms]
+193. Status is 200
+194. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 3977859'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 3ms]
+195. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 9179633'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+196. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+Iteration 50/50
+
+└ Create User
+  ┌
+  │ 'Current randomInt: 110926'
+  └
+  POST http://localhost:4000/users/create [201 Created, 1.37kB, 98ms]
+  √  Status is 201 or 200 for user creation
+  √  User ID captured successfully
+
+└ POST User Login
+  ┌
+  │ 'Current randomInt: 5732116'
+  └
+  POST http://localhost:4000/users/login [400 Bad Request, 1.1kB, 6ms]
+197. Status is 200
+198. Login successful message
+
+└ GET All Users
+  ┌
+  │ 'Current randomInt: 4606589'
+  └
+  GET http://localhost:4000/users [500 Internal Server Error, 1.63kB, 5ms]
+199. Status is 200
+  ┌
+  │ 'Error parsing JSON response for Get All Users:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON
+
+└ GET User By ID
+  ┌
+  │ 'Current randomInt: 8525097'
+  └
+  √  Skipped - No user_id environment variable set.
+  GET http://localhost:4000/users/{{user_id}} [500 Internal Server Error, 1.63kB, 5ms]
+200. Status is 200
+  ┌
+  │ 'Error parsing JSON response or validating user ID:', {
+  │   type: 'Error',
+  │   name: 'JSONError',
+  │   message: "Unexpected token '<' at 1:1\n<!DOCTYPE html>\n^"
+  │ }
+  └
+  √  Response is valid JSON and ID is validated
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                50 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │               200 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │               200 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │               250 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │               450 │              200 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 18.9s                                      │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 105.69kB (approx)                         │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 29ms [min: 2ms, max: 159ms, s.d.: 41ms] │
+└────────────────────────────────────────────────────────────────┘
+
+    #  failure               detail
+
+ 001.  AssertionError        Status is 200
+       iteration: 1          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 002.  AssertionError        Login successful message
+       iteration: 1          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 003.  AssertionError        Status is 200
+       iteration: 1          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 004.  AssertionError        Status is 200
+       iteration: 1          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 005.  AssertionError        Status is 200
+       iteration: 2          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 006.  AssertionError        Login successful message
+       iteration: 2          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 007.  AssertionError        Status is 200
+       iteration: 2          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 008.  AssertionError        Status is 200
+       iteration: 2          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 009.  AssertionError        Status is 200
+       iteration: 3          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 010.  AssertionError        Login successful message
+       iteration: 3          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 011.  AssertionError        Status is 200
+       iteration: 3          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 012.  AssertionError        Status is 200
+       iteration: 3          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 013.  AssertionError        Status is 200
+       iteration: 4          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 014.  AssertionError        Login successful message
+       iteration: 4          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 015.  AssertionError        Status is 200
+       iteration: 4          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 016.  AssertionError        Status is 200
+       iteration: 4          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 017.  AssertionError        Status is 200
+       iteration: 5          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 018.  AssertionError        Login successful message
+       iteration: 5          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 019.  AssertionError        Status is 200
+       iteration: 5          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 020.  AssertionError        Status is 200
+       iteration: 5          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 021.  AssertionError        Status is 200
+       iteration: 6          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 022.  AssertionError        Login successful message
+       iteration: 6          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 023.  AssertionError        Status is 200
+       iteration: 6          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 024.  AssertionError        Status is 200
+       iteration: 6          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 025.  AssertionError        Status is 200
+       iteration: 7          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 026.  AssertionError        Login successful message
+       iteration: 7          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 027.  AssertionError        Status is 200
+       iteration: 7          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 028.  AssertionError        Status is 200
+       iteration: 7          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 029.  AssertionError        Status is 200
+       iteration: 8          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 030.  AssertionError        Login successful message
+       iteration: 8          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 031.  AssertionError        Status is 200
+       iteration: 8          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 032.  AssertionError        Status is 200
+       iteration: 8          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 033.  AssertionError        Status is 200
+       iteration: 9          expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 034.  AssertionError        Login successful message
+       iteration: 9          expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 035.  AssertionError        Status is 200
+       iteration: 9          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 036.  AssertionError        Status is 200
+       iteration: 9          expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 037.  AssertionError        Status is 200
+       iteration: 10         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 038.  AssertionError        Login successful message
+       iteration: 10         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 039.  AssertionError        Status is 200
+       iteration: 10         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 040.  AssertionError        Status is 200
+       iteration: 10         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 041.  AssertionError        Status is 200
+       iteration: 11         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 042.  AssertionError        Login successful message
+       iteration: 11         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 043.  AssertionError        Status is 200
+       iteration: 11         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 044.  AssertionError        Status is 200
+       iteration: 11         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 045.  AssertionError        Status is 200
+       iteration: 12         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 046.  AssertionError        Login successful message
+       iteration: 12         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 047.  AssertionError        Status is 200
+       iteration: 12         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 048.  AssertionError        Status is 200
+       iteration: 12         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 049.  AssertionError        Status is 200
+       iteration: 13         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 050.  AssertionError        Login successful message
+       iteration: 13         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 051.  AssertionError        Status is 200
+       iteration: 13         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 052.  AssertionError        Status is 200
+       iteration: 13         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 053.  AssertionError        Status is 200
+       iteration: 14         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 054.  AssertionError        Login successful message
+       iteration: 14         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 055.  AssertionError        Status is 200
+       iteration: 14         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 056.  AssertionError        Status is 200
+       iteration: 14         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 057.  AssertionError        Status is 200
+       iteration: 15         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 058.  AssertionError        Login successful message
+       iteration: 15         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 059.  AssertionError        Status is 200
+       iteration: 15         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 060.  AssertionError        Status is 200
+       iteration: 15         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 061.  AssertionError        Status is 200
+       iteration: 16         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 062.  AssertionError        Login successful message
+       iteration: 16         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 063.  AssertionError        Status is 200
+       iteration: 16         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 064.  AssertionError        Status is 200
+       iteration: 16         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 065.  AssertionError        Status is 200
+       iteration: 17         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 066.  AssertionError        Login successful message
+       iteration: 17         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 067.  AssertionError        Status is 200
+       iteration: 17         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 068.  AssertionError        Status is 200
+       iteration: 17         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 069.  AssertionError        Status is 200
+       iteration: 18         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 070.  AssertionError        Login successful message
+       iteration: 18         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 071.  AssertionError        Status is 200
+       iteration: 18         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 072.  AssertionError        Status is 200
+       iteration: 18         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 073.  AssertionError        Status is 200
+       iteration: 19         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 074.  AssertionError        Login successful message
+       iteration: 19         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 075.  AssertionError        Status is 200
+       iteration: 19         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 076.  AssertionError        Status is 200
+       iteration: 19         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 077.  AssertionError        Status is 200
+       iteration: 20         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 078.  AssertionError        Login successful message
+       iteration: 20         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 079.  AssertionError        Status is 200
+       iteration: 20         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 080.  AssertionError        Status is 200
+       iteration: 20         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 081.  AssertionError        Status is 200
+       iteration: 21         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 082.  AssertionError        Login successful message
+       iteration: 21         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 083.  AssertionError        Status is 200
+       iteration: 21         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 084.  AssertionError        Status is 200
+       iteration: 21         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 085.  AssertionError        Status is 200
+       iteration: 22         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 086.  AssertionError        Login successful message
+       iteration: 22         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 087.  AssertionError        Status is 200
+       iteration: 22         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 088.  AssertionError        Status is 200
+       iteration: 22         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 089.  AssertionError        Status is 200
+       iteration: 23         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 090.  AssertionError        Login successful message
+       iteration: 23         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 091.  AssertionError        Status is 200
+       iteration: 23         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 092.  AssertionError        Status is 200
+       iteration: 23         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 093.  AssertionError        Status is 200
+       iteration: 24         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 094.  AssertionError        Login successful message
+       iteration: 24         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 095.  AssertionError        Status is 200
+       iteration: 24         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 096.  AssertionError        Status is 200
+       iteration: 24         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 097.  AssertionError        Status is 200
+       iteration: 25         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 098.  AssertionError        Login successful message
+       iteration: 25         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 099.  AssertionError        Status is 200
+       iteration: 25         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 100.  AssertionError        Status is 200
+       iteration: 25         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 101.  AssertionError        Status is 200
+       iteration: 26         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 102.  AssertionError        Login successful message
+       iteration: 26         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 103.  AssertionError        Status is 200
+       iteration: 26         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 104.  AssertionError        Status is 200
+       iteration: 26         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 105.  AssertionError        Status is 200
+       iteration: 27         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 106.  AssertionError        Login successful message
+       iteration: 27         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 107.  AssertionError        Status is 200
+       iteration: 27         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 108.  AssertionError        Status is 200
+       iteration: 27         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 109.  AssertionError        Status is 200
+       iteration: 28         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 110.  AssertionError        Login successful message
+       iteration: 28         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 111.  AssertionError        Status is 200
+       iteration: 28         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 112.  AssertionError        Status is 200
+       iteration: 28         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 113.  AssertionError        Status is 200
+       iteration: 29         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 114.  AssertionError        Login successful message
+       iteration: 29         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 115.  AssertionError        Status is 200
+       iteration: 29         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 116.  AssertionError        Status is 200
+       iteration: 29         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 117.  AssertionError        Status is 200
+       iteration: 30         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 118.  AssertionError        Login successful message
+       iteration: 30         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 119.  AssertionError        Status is 200
+       iteration: 30         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 120.  AssertionError        Status is 200
+       iteration: 30         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 121.  AssertionError        Status is 200
+       iteration: 31         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 122.  AssertionError        Login successful message
+       iteration: 31         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 123.  AssertionError        Status is 200
+       iteration: 31         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 124.  AssertionError        Status is 200
+       iteration: 31         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 125.  AssertionError        Status is 200
+       iteration: 32         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 126.  AssertionError        Login successful message
+       iteration: 32         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 127.  AssertionError        Status is 200
+       iteration: 32         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 128.  AssertionError        Status is 200
+       iteration: 32         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 129.  AssertionError        Status is 200
+       iteration: 33         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 130.  AssertionError        Login successful message
+       iteration: 33         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 131.  AssertionError        Status is 200
+       iteration: 33         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 132.  AssertionError        Status is 200
+       iteration: 33         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 133.  AssertionError        Status is 200
+       iteration: 34         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 134.  AssertionError        Login successful message
+       iteration: 34         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 135.  AssertionError        Status is 200
+       iteration: 34         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 136.  AssertionError        Status is 200
+       iteration: 34         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 137.  AssertionError        Status is 200
+       iteration: 35         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 138.  AssertionError        Login successful message
+       iteration: 35         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 139.  AssertionError        Status is 200
+       iteration: 35         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 140.  AssertionError        Status is 200
+       iteration: 35         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 141.  AssertionError        Status is 200
+       iteration: 36         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 142.  AssertionError        Login successful message
+       iteration: 36         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 143.  AssertionError        Status is 200
+       iteration: 36         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 144.  AssertionError        Status is 200
+       iteration: 36         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 145.  AssertionError        Status is 200
+       iteration: 37         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 146.  AssertionError        Login successful message
+       iteration: 37         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 147.  AssertionError        Status is 200
+       iteration: 37         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 148.  AssertionError        Status is 200
+       iteration: 37         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 149.  AssertionError        Status is 200
+       iteration: 38         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 150.  AssertionError        Login successful message
+       iteration: 38         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 151.  AssertionError        Status is 200
+       iteration: 38         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 152.  AssertionError        Status is 200
+       iteration: 38         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 153.  AssertionError        Status is 200
+       iteration: 39         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 154.  AssertionError        Login successful message
+       iteration: 39         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 155.  AssertionError        Status is 200
+       iteration: 39         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 156.  AssertionError        Status is 200
+       iteration: 39         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 157.  AssertionError        Status is 200
+       iteration: 40         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 158.  AssertionError        Login successful message
+       iteration: 40         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 159.  AssertionError        Status is 200
+       iteration: 40         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 160.  AssertionError        Status is 200
+       iteration: 40         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 161.  AssertionError        Status is 200
+       iteration: 41         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 162.  AssertionError        Login successful message
+       iteration: 41         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 163.  AssertionError        Status is 200
+       iteration: 41         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 164.  AssertionError        Status is 200
+       iteration: 41         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 165.  AssertionError        Status is 200
+       iteration: 42         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 166.  AssertionError        Login successful message
+       iteration: 42         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 167.  AssertionError        Status is 200
+       iteration: 42         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 168.  AssertionError        Status is 200
+       iteration: 42         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 169.  AssertionError        Status is 200
+       iteration: 43         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 170.  AssertionError        Login successful message
+       iteration: 43         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 171.  AssertionError        Status is 200
+       iteration: 43         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 172.  AssertionError        Status is 200
+       iteration: 43         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 173.  AssertionError        Status is 200
+       iteration: 44         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 174.  AssertionError        Login successful message
+       iteration: 44         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 175.  AssertionError        Status is 200
+       iteration: 44         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 176.  AssertionError        Status is 200
+       iteration: 44         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 177.  AssertionError        Status is 200
+       iteration: 45         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 178.  AssertionError        Login successful message
+       iteration: 45         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 179.  AssertionError        Status is 200
+       iteration: 45         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 180.  AssertionError        Status is 200
+       iteration: 45         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 181.  AssertionError        Status is 200
+       iteration: 46         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 182.  AssertionError        Login successful message
+       iteration: 46         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 183.  AssertionError        Status is 200
+       iteration: 46         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 184.  AssertionError        Status is 200
+       iteration: 46         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 185.  AssertionError        Status is 200
+       iteration: 47         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 186.  AssertionError        Login successful message
+       iteration: 47         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 187.  AssertionError        Status is 200
+       iteration: 47         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 188.  AssertionError        Status is 200
+       iteration: 47         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 189.  AssertionError        Status is 200
+       iteration: 48         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 190.  AssertionError        Login successful message
+       iteration: 48         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 191.  AssertionError        Status is 200
+       iteration: 48         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 192.  AssertionError        Status is 200
+       iteration: 48         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 193.  AssertionError        Status is 200
+       iteration: 49         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 194.  AssertionError        Login successful message
+       iteration: 49         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 195.  AssertionError        Status is 200
+       iteration: 49         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 196.  AssertionError        Status is 200
+       iteration: 49         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"
+
+ 197.  AssertionError        Status is 200
+       iteration: 50         expected response to have status code 200 but got 400
+                             at assertion:0 in test-script
+                             inside "Users / POST User Login"
+
+ 198.  AssertionError        Login successful message
+       iteration: 50         expected 'Email atau password salah' to deeply equal 'Login berhasil'
+                             at assertion:1 in test-script
+                             inside "Users / POST User Login"
+
+ 199.  AssertionError        Status is 200
+       iteration: 50         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET All Users"
+
+ 200.  AssertionError        Status is 200
+       iteration: 50         expected response to have status code 200 but got 500
+                             at assertion:0 in test-script
+                             inside "Users / GET User By ID"

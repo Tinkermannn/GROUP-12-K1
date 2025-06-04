@@ -113,3 +113,46 @@ exports.checkUserExists = async (userId) => {
 
     return result.rows.length > 0;
 };
+
+// NEW COMPLEX QUERY: Get All Students with Full User Details and their Registered Courses
+exports.getStudentsWithDetailsAndCourses = async () => {
+    const query = `
+        SELECT
+            s.id AS student_id,
+            s.nim,
+            s.name AS student_name,
+            s.major,
+            s.semester,
+            u.username,
+            u.email,
+            COALESCE(
+                json_agg(
+                    json_build_object(
+                        'registration_id', cr.id,
+                        'course_id', c.id,
+                        'course_code', c.course_code,
+                        'course_name', c.name,
+                        'credits', c.credits,
+                        'academic_year', cr.academic_year,
+                        'registration_semester', cr.semester,
+                        'status', cr.status
+                    )
+                ) FILTER (WHERE cr.id IS NOT NULL),
+                '[]'
+            ) AS registered_courses
+        FROM
+            students s
+        JOIN
+            users u ON s.user_id = u.id
+        LEFT JOIN
+            course_registrations cr ON s.id = cr.student_id
+        LEFT JOIN
+            courses c ON cr.course_id = c.id
+        GROUP BY
+            s.id, s.nim, s.name, s.major, s.semester, u.username, u.email
+        ORDER BY
+            s.name;
+    `;
+    const result = await db.query(query);
+    return result.rows;
+};

@@ -1,0 +1,26 @@
+Summary for: sql_result.json
+Total Requests: 200
+Passed Requests: 51
+Failed Requests: 149
+Passed Assertions: 301
+Failed Assertions: 199
+
+Average Response Times (ms):
+  Create User: 27.18
+  POST User Login: 92.40
+  GET All Users: 8.98
+  GET User By ID: 11.38
+----------------------------------------
+Summary for: nosql_result.json
+Total Requests: 200
+Passed Requests: 1
+Failed Requests: 199
+Passed Assertions: 201
+Failed Assertions: 249
+
+Average Response Times (ms):
+  Create User: 16.52
+  POST User Login: 104.78
+  GET All Users: 9.22
+  GET User By ID: 6.70
+----------------------------------------

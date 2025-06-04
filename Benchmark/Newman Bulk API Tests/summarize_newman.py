@@ -7,20 +7,29 @@ def summarize_newman_report(file_path):
 
     stats = {
         "total_requests": 0,
-        "passed_tests": 0,
-        "failed_tests": 0,
+        "passed_requests": 0,
+        "failed_requests": 0,
+        "passed_assertions": 0,
+        "failed_assertions": 0,
         "response_times": {},
     }
 
     for run in data.get("run", {}).get("executions", []):
         stats["total_requests"] += 1
 
-        # Count passed/failed tests
-        for test in run.get("assertions", []):
+        assertions = run.get("assertions", [])
+        failed = any(test.get("error") for test in assertions)
+        if failed:
+            stats["failed_requests"] += 1
+        else:
+            stats["passed_requests"] += 1
+
+        # Count assertions
+        for test in assertions:
             if test.get("error"):
-                stats["failed_tests"] += 1
+                stats["failed_assertions"] += 1
             else:
-                stats["passed_tests"] += 1
+                stats["passed_assertions"] += 1
 
         # Collect response time by request name
         name = run.get("item", {}).get("name", "unknown")
@@ -29,8 +38,10 @@ def summarize_newman_report(file_path):
 
     print(f"Summary for: {file_path}")
     print(f"Total Requests: {stats['total_requests']}")
-    print(f"Passed Tests: {stats['passed_tests']}")
-    print(f"Failed Tests: {stats['failed_tests']}")
+    print(f"Passed Requests: {stats['passed_requests']}")
+    print(f"Failed Requests: {stats['failed_requests']}")
+    print(f"Passed Assertions: {stats['passed_assertions']}")
+    print(f"Failed Assertions: {stats['failed_assertions']}")
     print("\nAverage Response Times (ms):")
     for req_name, times in stats["response_times"].items():
         avg_time = mean(times)

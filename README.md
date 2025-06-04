@@ -57,7 +57,7 @@ project-root/
 
 ---
 
-## 4. Install Dependencies
+## 4. [ONLY DO THIS IF YOURE NOT USING DOCKER] Install Dependencies
 
 From the project root, run:
 

@@ -16,14 +16,20 @@ const courseSchema = new mongoose.Schema(
             required: true,
         },
         semester: {
-            type: Number,
+            type: Number, // Assuming semester is a number like 1 or 2
             required: true,
         },
         lecturer: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Lecturer",
+            ref: "Lecturer", // Reference to Lecturer model
             required: true,
         },
+        prerequisites: [ // Array of ObjectIds referencing other courses
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Course",
+            },
+        ],
     },
     { timestamps: true }
 );

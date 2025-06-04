@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   postgres:
     image: postgres:16
@@ -10,6 +9,11 @@ services:
       - "5432:5432"
     volumes:
       - ./Backend-sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U benchmarkuser"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend-sql:
     build: ./Backend-sql

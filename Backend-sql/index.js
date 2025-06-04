@@ -1,15 +1,35 @@
-const express = require("express");
 require("dotenv").config();
-const app = express();
-const PORT = process.env.PORT || 3000;
-
+const express = require('express');
 const cors = require('cors');
-const rateLimit = require('express-rate-limit');
+const db = require('./src/database/pg.database'); // <--- CORRECTED PATH
 const helmet = require('helmet');
-const xss = require('xss-clean');
+//const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const userRoutes = require('./src/routes/user.route');
+const courseRoutes = require('./src/routes/course.route'); // Import CourseRoute
+const studentRoutes = require('./src/routes/student.route'); // Import StudentRoute
+const courseRegRoute = require('./src/routes/coursereg.route');
+const lecturerRoutes = require('./src/routes/lecturer.route'); // Import LecturerRoute
 
+
+const port = process.env.PORT;
+const app = express();
+
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+    cors({
+        methods: "GET,POST,PUT,DELETE",
+        credentials: true
+    })
+);
+
+app.use(helmet());
+//app.use(xss());
 app.use(rateLimit({
-    windowMs: 1 * 60 * 1000, 
+    windowMs: 1 * 60 * 1000,
     max: 1000,
     message: {
         success: false,
@@ -18,37 +38,23 @@ app.use(rateLimit({
     }
 }));
 
-const userRateLimiter = rateLimit({
-    windowMs: 5 * 60 * 1000,
-    max: 5000,
-    keyGenerator: (req) => {
-        try {
-            return req.user?.id || req.ip;
-        } catch {
-            return req.ip;
-        }
-    }
+// Middleware to map camelCase IDs to backend field names
+app.use((req, res, next) => {
+    // For students
+    if (req.body.userId) req.body.user = req.body.userId;
+    // For courses
+    if (req.body.lecturerId) req.body.lecturer = req.body.lecturerId;
+    if (req.body.prerequisiteIds) req.body.prerequisites = req.body.prerequisiteIds;
+    // For course registrations
+    if (req.body.studentId) req.body.student = req.body.studentId;
+    if (req.body.courseId) req.body.course = req.body.courseId;
+    next();
 });
 
-app.use(cors({
-    origin: [],
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
-}));
-
-
-
-app.use(helmet());
-
-app.use(express.json());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const userRoutes = require('./src/routes/user.route');
-const studentRoutes = require('./src/routes/student.route');
-const lecturerRoutes = require('./src/routes/lecturer.route');
-const courseRoutes = require('./src/routes/course.route');
-const courseRegistrationRoutes = require('./src/routes/coursereg.route');
+// status
+app.get('/status', (req, res) => {
+    res.status(200).send({ status: "Server is running" });
+})
 
 app.use('/user', userRoutes);
 app.use('/users', userRoutes);
@@ -62,19 +68,30 @@ app.use('/lecturers', lecturerRoutes);
 app.use('/course', courseRoutes);
 app.use('/courses', courseRoutes);
 
-app.use('/registration', courseRegistrationRoutes);
-app.use('/course-registrations', courseRegistrationRoutes);
+app.use('/registration', courseRegRoute);
+app.use('/course-registrations', courseRegRoute);
 
+// Catch-all for undefined routes (404 Not Found) - It's good practice to have this last
+app.use((req, res, next) => {
+    const error = new Error(`Not Found - ${req.originalUrl}`);
+    res.status(404);
+    next(error); // Pass to the error handling middleware
+});
+
+// Error handling middleware (MUST BE LAST)
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({
+    console.error(err.stack); // Log the error stack for debugging
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode; // If status was 200, it's now 500
+    res.status(statusCode);
+    res.json({
         success: false,
-        message: err.message || "Internal server error",
-        payload: null
+        message: err.message,
+        // Include stack trace only in development for debugging
+        stack: process.env.NODE_ENV === 'production' ? null : err.stack
     });
 });
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`);
-});
+app.listen(port, () => {
+    console.log(`🚀 Server is running on PORT ${port}`);
+})

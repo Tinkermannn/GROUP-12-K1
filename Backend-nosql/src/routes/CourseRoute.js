@@ -1,20 +1,15 @@
-const express = require("express");
-const courseRepo = require("../repositories/repository.course");
+const express = require('express');
 const router = express.Router();
+const courseRepository = require('../repositories/repository.course'); // Using repository directly as per your structure
 
-// Get all courses
-router.get("/", courseRepo.getAllCourses);
+// Basic CRUD routes
+router.post('/create', courseRepository.createCourse);
+router.get('/', courseRepository.getAllCourses);
+router.get('/:id', courseRepository.getCourseById);
+router.put('/:id', courseRepository.updateCourse);
+router.delete('/:id', courseRepository.deleteCourse);
 
-// Get course by ID
-router.get("/:id", courseRepo.getCourseById);
-
-// Add a new course
-router.post("/create", courseRepo.createCourse);
-
-// Update course
-router.put("/:id", courseRepo.updateCourse);
-
-// Delete course
-router.delete("/:id", courseRepo.deleteCourse);
+// NEW COMPLEX QUERY ROUTE
+router.get('/details/full', courseRepository.getCoursesWithDetails);
 
 module.exports = router;

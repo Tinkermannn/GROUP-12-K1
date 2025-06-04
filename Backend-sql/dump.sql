@@ -111,5 +111,3 @@ VALUES
     (1, 1, '2024/2025', 'Ganjil', 'registered'),
     (1, 2, '2024/2025', 'Genap', 'registered'),
     (2, 3, '2024/2025', 'Ganjil', 'approved');
-
--- ...existing code...

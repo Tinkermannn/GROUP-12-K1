@@ -17,14 +17,14 @@ const courseRegistrationSchema = new mongoose.Schema(
             required: true,
         },
         semester: {
-            type: String,
-            enum: ["Ganjil", "Genap"],
+            type: String, // Assuming 'Ganjil' or 'Genap'
+            enum: ['Ganjil', 'Genap'], // Add enum for validation if applicable
             required: true,
         },
         status: {
             type: String,
-            enum: ["registered", "dropped", "approved"],
-            default: "registered",
+            enum: ['registered', 'dropped', 'approved'],
+            default: 'registered',
         },
     },
     { timestamps: true }

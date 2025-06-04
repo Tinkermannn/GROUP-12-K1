@@ -106,3 +106,13 @@ exports.deleteStudent = async (req, res, next) => {
         next(error);
     }
 };
+
+// NEW COMPLEX QUERY: Get All Students with Full User Details and their Registered Courses
+exports.getStudentsWithDetailsAndCourses = async (req, res, next) => {
+    try {
+        const students = await studentRepository.getStudentsWithDetailsAndCourses();
+        return baseResponse(res, true, 200, "Students with details and courses fetched", students);
+    } catch (error) {
+        next(error);
+    }
+};
