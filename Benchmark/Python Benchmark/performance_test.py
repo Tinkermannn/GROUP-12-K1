@@ -37,46 +37,75 @@ def generate_user_data(random_id):
         "role": "student"
     }
 
-def generate_student_data(user_id, random_id):
+def generate_student_data(user_id, random_id, for_nosql=False):
     """Generates unique student data."""
-    return {
-        "user_id": user_id, # This is the actual user ID string
-        "nim": f"NIM{random_id}_{generate_random_string(3)}",
-        "name": f"Student {random_id}",
-        "major": random.choice(["Computer Science", "Information Systems", "Mathematics", "Physics"]),
-        "semester": random.randint(1, 8)
-    }
+    if for_nosql:
+        return {
+            "userId": user_id,
+            "nim": f"NIM{random_id}_{generate_random_string(3)}",
+            "name": f"Student {random_id}",
+            "major": random.choice(["Computer Science", "Information Systems", "Mathematics", "Physics"]),
+            "semester": random.randint(1, 8)
+        }
+    else:
+        return {
+            "user_id": user_id,
+            "nim": f"NIM{random_id}_{generate_random_string(3)}",
+            "name": f"Student {random_id}",
+            "major": random.choice(["Computer Science", "Information Systems", "Mathematics", "Physics"]),
+            "semester": random.randint(1, 8)
+        }
 
 def generate_lecturer_data(random_id):
     """Generates unique lecturer data."""
     return {
         "name": f"Dr. {generate_random_string(5)}",
-        "nidn": f"{generate_random_numeric_string(8)}", # <--- Changed to numeric string for SQL
+        "nidn": f"{generate_random_numeric_string(8)}",
         "department": random.choice(["Computer Science", "Information Systems", "Electrical Engineering"])
     }
 
-def generate_course_data(lecturer_id, random_id, prerequisites=None):
+def generate_course_data(lecturer_id, random_id, prerequisites=None, for_nosql=False):
     """Generates unique course data."""
     if prerequisites is None:
         prerequisites = []
-    return {
-        "course_code": f"C{random_id}_{generate_random_string(3)}",
-        "name": f"Course {random_id} {generate_random_string(5)}",
-        "credits": random.choice([2, 3, 4]),
-        "semester": random.randint(1, 8),
-        "lecturer_id": lecturer_id, # This is the actual lecturer ID string
-        "prerequisiteIds": prerequisites # Expects an array of IDs
-    }
+    
+    if for_nosql:
+        return {
+            "course_code": f"C{random_id}_{generate_random_string(3)}",
+            "name": f"Course {random_id} {generate_random_string(5)}",
+            "credits": random.choice([2, 3, 4]),
+            "semester": random.randint(1, 8),
+            "lecturerId": lecturer_id,
+            "prerequisiteIds": prerequisites
+        }
+    else:
+        return {
+            "course_code": f"C{random_id}_{generate_random_string(3)}",
+            "name": f"Course {random_id} {generate_random_string(5)}",
+            "credits": random.choice([2, 3, 4]),
+            "semester": random.randint(1, 8),
+            "lecturer_id": lecturer_id,
+            "prerequisiteIds": prerequisites
+        }
 
-def generate_course_registration_data(student_id, course_id):
+def generate_course_registration_data(student_id, course_id, for_nosql=False):
     """Generates unique course registration data."""
-    return {
-        "studentId": student_id,
-        "courseId": course_id,
-        "academic_year": "2024/2025",
-        "semester": random.choice(["Ganjil", "Genap"]),
-        "status": random.choice(["registered", "approved"])
-    }
+    if for_nosql:
+        return {
+            "studentId": student_id,
+            "courseId": course_id,
+            "academic_year": "2024/2025",
+            "semester": random.choice(["Ganjil", "Genap"]),
+            "status": random.choice(["registered", "approved"])
+        }
+    else:
+        return {
+            "student_id": student_id,
+            "course_id": course_id,
+            "academic_year": "2024/2025",
+            "semester": random.choice(["Ganjil", "Genap"]),
+            "status": random.choice(["registered", "approved"])
+        }
 
 def make_request(method, url, data=None, headers=None):
     """
@@ -84,9 +113,9 @@ def make_request(method, url, data=None, headers=None):
     Returns (response_time, success, response_json, error_message, status_code)
     """
     start_time = time.perf_counter()
-    response_time = 0 # Initialize response_time
+    response_time = 0
     status_code = 'N/A'
-    response_json = {} # Initialize to empty dict
+    response_json = {}
     try:
         if method == "GET":
             response = requests.get(url, headers=headers, timeout=30)
@@ -105,9 +134,9 @@ def make_request(method, url, data=None, headers=None):
         try:
             response_json = response.json()
         except json.JSONDecodeError:
-            response_json = {"message": response.text} # Capture non-JSON response
+            response_json = {"message": response.text}
 
-        success = response.ok # True for 2xx status codes
+        success = response.ok
         error_message = None
         if not success:
             error_message = response_json.get("message", response.text)
@@ -127,7 +156,6 @@ def make_request(method, url, data=None, headers=None):
 def get_id_from_response(response_json):
     """Extracts ID from various response structures."""
     if response_json:
-        # Prioritize 'payload' (SQL), then 'data' (NoSQL often), then direct ID
         if response_json.get('payload') and (response_json['payload'].get('id') or response_json['payload'].get('_id')):
             return str(response_json['payload'].get('id') or response_json['payload'].get('_id'))
         elif response_json.get('data') and (response_json['data'].get('id') or response_json['data'].get('_id')):
@@ -137,13 +165,14 @@ def get_id_from_response(response_json):
     return None
 
 # --- Test Execution Functions ---
-def run_test_scenario(scenario_name, base_url, method, endpoint, data_generator=None, num_requests=1, ids_to_use=None):
+def run_test_scenario(scenario_name, base_url, method, endpoint, data_generator=None, num_requests=1, ids_to_use=None, **kwargs):
     """
     Runs a single test scenario and collects results.
     ids_to_use: A list of IDs to use for operations like GET by ID, PUT, DELETE.
+    kwargs: Additional arguments to pass to data_generator (e.g., for_nosql)
     """
     results = []
-    generated_ids = [] # To store IDs created for subsequent tests
+    generated_ids = []
 
     print(f"\n--- Running {scenario_name} on {base_url} ({num_requests} requests) ---")
 
@@ -151,24 +180,20 @@ def run_test_scenario(scenario_name, base_url, method, endpoint, data_generator=
         current_data = None
         current_url = f"{base_url}{endpoint}"
         
-        # Determine data and URL for current request
         if data_generator:
-            # Data generator needs random_id for uniqueness
-            current_data = data_generator(f"{random.randint(1, 10000000)}_{i}")
+            current_data = data_generator(f"{random.randint(1, 10000000)}_{i}", **kwargs)
         
         if ids_to_use and i < len(ids_to_use):
-            # For operations like GET /:id, PUT /:id, DELETE /:id
             current_url = f"{base_url}{endpoint}/{ids_to_use[i]}"
-            # If it's an update, data_generator might still provide the body
             if method == "PUT" and data_generator:
-                 current_data = data_generator(f"{random.randint(1, 10000000)}_{i}")
+                 current_data = data_generator(f"{random.randint(1, 10000000)}_{i}", **kwargs)
 
         response_time, success, response_json, error_message, status_code = make_request(method, current_url, current_data)
         
         result_entry = {
             "scenario": scenario_name,
             "base_url": base_url,
-            "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend", # New field
+            "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
             "method": method,
             "endpoint": endpoint,
             "request_num": i + 1,
@@ -179,22 +204,23 @@ def run_test_scenario(scenario_name, base_url, method, endpoint, data_generator=
         }
         results.append(result_entry)
 
-        if success and method in ["POST", "PUT"]: # Capture ID for created/updated resources
+        if success and method in ["POST", "PUT"]:
             resource_id = get_id_from_response(response_json)
             if resource_id:
                 generated_ids.append(resource_id)
-                print(f"  Successfully created/updated. ID captured: {resource_id}") # Debug print
+                print(f"  Successfully created/updated. ID captured: {resource_id}")
             else:
                 print(f"Warning: Could not extract ID from successful response for {scenario_name} (Request {i+1}): {response_json}")
         elif not success:
-            print(f"Error in {scenario_name} (Request {i+1}): {error_message} (Status: {status_code}) | Response: {response_json}") # Enhanced error print
+            print(f"Error in {scenario_name} (Request {i+1}): {error_message} (Status: {status_code}) | Response: {response_json}")
 
     return results, generated_ids
 
-def run_batch_create_scenario(scenario_name, base_url, endpoint, data_generator, num_items, *args):
+def run_batch_create_scenario(scenario_name, base_url, endpoint, data_generator, num_items, *args, **kwargs):
     """
     Runs a batch create scenario and collects results.
     *args are additional arguments to pass to the data_generator (e.g., user_id, lecturer_id)
+    kwargs: Additional arguments to pass to data_generator (e.g., for_nosql)
     Returns (results, list_of_created_ids)
     """
     created_ids = []
@@ -204,15 +230,14 @@ def run_batch_create_scenario(scenario_name, base_url, endpoint, data_generator,
     start_total_time = time.perf_counter()
     for i in range(num_items):
         random_id = f"{random.randint(1, 10000000)}_{i}"
-        # Pass additional args to data_generator
-        data = data_generator(*args, random_id) if args else data_generator(random_id)
+        data = data_generator(*args, random_id, **kwargs)
         
         response_time, success, response_json, error_message, status_code = make_request("POST", f"{base_url}{endpoint}", data)
         
         results.append({
             "scenario": scenario_name,
             "base_url": base_url,
-            "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend", # New field
+            "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
             "method": "POST",
             "endpoint": endpoint,
             "request_num": i + 1,
@@ -236,7 +261,7 @@ def run_batch_create_scenario(scenario_name, base_url, endpoint, data_generator,
     results.append({
         "scenario": f"{scenario_name} (Total)",
         "base_url": base_url,
-        "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend", # New field
+        "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
         "method": "POST",
         "endpoint": endpoint,
         "request_num": "Total",
@@ -247,6 +272,111 @@ def run_batch_create_scenario(scenario_name, base_url, endpoint, data_generator,
     })
     
     return results, created_ids
+
+def run_batch_update_scenario(scenario_name, base_url, endpoint, data_generator, num_items, ids_to_update, **kwargs):
+    """
+    Runs a batch update scenario, updating existing items.
+    ids_to_update: List of IDs of items to update.
+    """
+    results = []
+    print(f"\n--- Running {scenario_name} on {base_url} ({num_items} items) ---")
+
+    if not ids_to_update:
+        print(f"Skipping {scenario_name}: No IDs available to update.")
+        return [], []
+
+    # Ensure we don't try to update more items than available IDs
+    actual_num_updates = min(num_items, len(ids_to_update))
+    
+    start_total_time = time.perf_counter()
+    for i in range(actual_num_updates):
+        item_id = ids_to_update[i]
+        update_data = data_generator(f"update_{random.randint(1, 10000000)}_{i}", **kwargs)
+        
+        response_time, success, response_json, error_message, status_code = make_request("PUT", f"{base_url}{endpoint}/{item_id}", update_data)
+        
+        results.append({
+            "scenario": scenario_name,
+            "base_url": base_url,
+            "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
+            "method": "PUT",
+            "endpoint": endpoint,
+            "request_num": i + 1,
+            "response_time_ms": response_time,
+            "success": success,
+            "status_code": status_code,
+            "message": response_json.get('message', error_message) if response_json else error_message
+        })
+        
+        if not success:
+            print(f"Error in {scenario_name} (Item {i+1}, ID {item_id}): {error_message} (Status: {status_code}) | Response: {response_json}")
+            
+    total_time_ms = (time.perf_counter() - start_total_time) * 1000
+    
+    results.append({
+        "scenario": f"{scenario_name} (Total)",
+        "base_url": base_url,
+        "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
+        "method": "PUT",
+        "endpoint": endpoint,
+        "request_num": "Total",
+        "response_time_ms": total_time_ms,
+        "success": all(r['success'] for r in results if r['request_num'] != 'Total'),
+        "status_code": "N/A",
+        "message": f"Total time for {actual_num_updates} updates"
+    })
+    
+    return results, []
+
+def run_batch_delete_scenario(scenario_name, base_url, endpoint, ids_to_delete):
+    """
+    Runs a batch delete scenario, deleting existing items.
+    ids_to_delete: List of IDs of items to delete.
+    """
+    results = []
+    print(f"\n--- Running {scenario_name} on {base_url} ({len(ids_to_delete)} items) ---")
+
+    if not ids_to_delete:
+        print(f"Skipping {scenario_name}: No IDs available to delete.")
+        return [], []
+
+    start_total_time = time.perf_counter()
+    for i, item_id in enumerate(ids_to_delete):
+        response_time, success, response_json, error_message, status_code = make_request("DELETE", f"{base_url}{endpoint}/{item_id}")
+        
+        results.append({
+            "scenario": scenario_name,
+            "base_url": base_url,
+            "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
+            "method": "DELETE",
+            "endpoint": endpoint,
+            "request_num": i + 1,
+            "response_time_ms": response_time,
+            "success": success,
+            "status_code": status_code,
+            "message": response_json.get('message', error_message) if response_json else error_message
+        })
+        
+        if not success:
+            print(f"Error in {scenario_name} (Item {i+1}, ID {item_id}): {error_message} (Status: {status_code}) | Response: {response_json}")
+            
+    total_time_ms = (time.perf_counter() - start_total_time) * 1000
+    
+    results.append({
+        "scenario": f"{scenario_name} (Total)",
+        "base_url": base_url,
+        "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
+        "method": "DELETE",
+        "endpoint": endpoint,
+        "request_num": "Total",
+        "response_time_ms": total_time_ms,
+        "success": all(r['success'] for r in results if r['request_num'] != 'Total'),
+        "status_code": "N/A",
+        "message": f"Total time for {len(ids_to_delete)} deletions"
+    })
+    
+    return results, []
+
 
 def run_concurrent_read_scenario(scenario_name, base_url, endpoint, num_concurrent_requests):
     """
@@ -267,7 +397,7 @@ def run_concurrent_read_scenario(scenario_name, base_url, endpoint, num_concurre
             results.append({
                 "scenario": scenario_name,
                 "base_url": base_url,
-                "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend", # New field
+                "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
                 "method": "GET",
                 "endpoint": endpoint,
                 "request_num": i + 1,
@@ -284,7 +414,7 @@ def run_concurrent_read_scenario(scenario_name, base_url, endpoint, num_concurre
     results.append({
         "scenario": f"{scenario_name} (Total)",
         "base_url": base_url,
-        "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend", # New field
+        "backend_type": "SQL Backend" if base_url == SQL_BASE_URL else "NoSQL Backend",
         "method": "GET",
         "endpoint": endpoint,
         "request_num": "Total",
@@ -296,10 +426,61 @@ def run_concurrent_read_scenario(scenario_name, base_url, endpoint, num_concurre
     
     return results
 
+def cleanup_database(base_url):
+    """
+    Cleans up all dynamically created data in the database.
+    This assumes your delete endpoints handle cascading deletes or you delete in reverse order of creation.
+    For simplicity, we'll try to delete users, lecturers, students, and courses.
+    """
+    print(f"\n--- Cleaning up data for {base_url} ---")
+    cleanup_results = []
+
+    # Get all students and delete them (should cascade to registrations if configured)
+    _, _, all_students_response_json, _, _ = make_request("GET", f"{base_url}/students")
+    if all_students_response_json and all_students_response_json.get('data'):
+        student_ids = [get_id_from_response({'data': s}) for s in all_students_response_json['data']]
+        if student_ids:
+            delete_student_results, _ = run_batch_delete_scenario("Cleanup: Delete Students", base_url, "/students", student_ids)
+            cleanup_results.extend(delete_student_results)
+    
+    # Get all courses and delete them
+    _, _, all_courses_response_json, _, _ = make_request("GET", f"{base_url}/courses")
+    if all_courses_response_json and all_courses_response_json.get('data'):
+        course_ids = [get_id_from_response({'data': c}) for c in all_courses_response_json['data']]
+        if course_ids:
+            delete_course_results, _ = run_batch_delete_scenario("Cleanup: Delete Courses", base_url, "/courses", course_ids)
+            cleanup_results.extend(delete_course_results)
+
+    # Get all lecturers and delete them
+    _, _, all_lecturers_response_json, _, _ = make_request("GET", f"{base_url}/lecturers")
+    if all_lecturers_response_json and all_lecturers_response_json.get('data'):
+        lecturer_ids = [get_id_from_response({'data': l}) for l in all_lecturers_response_json['data']]
+        if lecturer_ids:
+            delete_lecturer_results, _ = run_batch_delete_scenario("Cleanup: Delete Lecturers", base_url, "/lecturers", lecturer_ids)
+            cleanup_results.extend(delete_lecturer_results)
+
+    # Get all users and delete them
+    _, _, all_users_response_json, _, _ = make_request("GET", f"{base_url}/users")
+    if all_users_response_json and all_users_response_json.get('data'):
+        user_ids = [get_id_from_response({'data': u}) for u in all_users_response_json['data']]
+        if user_ids:
+            delete_user_results, _ = run_batch_delete_scenario("Cleanup: Delete Users", base_url, "/users", user_ids)
+            cleanup_results.extend(delete_user_results)
+
+    print(f"--- Cleanup for {base_url} completed. ---")
+    return cleanup_results
+
+
 # --- Main Execution Block ---
 if __name__ == "__main__":
     all_results = []
     
+    # --- 0. Pre-Test Cleanup (Optional, but good for consistent runs) ---
+    print("\n--- Performing pre-test cleanup ---")
+    all_results.extend(cleanup_database(SQL_BASE_URL))
+    all_results.extend(cleanup_database(NOSQL_BASE_URL))
+
+
     # --- 1. Setup: Create initial entities for dependent tests ---
     # We need at least one user, lecturer, and course to create students and registrations.
     # These are single creations, not part of the batch tests.
@@ -361,21 +542,28 @@ if __name__ == "__main__":
         data_generator=lambda r_id: generate_user_data(f"setup_nosql_{r_id}"), num_requests=1
     )
     all_results.extend(user_results_nosql)
-    if new_user_id_nosql: user_ids_nosql.extend(new_user_id_nosql)
-    else: print("NoSQL User setup failed, subsequent dependent setups may be skipped.")
+    if new_user_id_nosql:
+        user_ids_nosql.extend(new_user_id_nosql)
+        print(f"  NoSQL User ID (for dependent tests): {user_ids_nosql[0]}")
+    else:
+        print("NoSQL User setup failed, subsequent dependent setups may be skipped.")
 
     lecturer_results_nosql, new_lecturer_id_nosql = run_test_scenario(
         "Setup: Create Lecturer", NOSQL_BASE_URL, "POST", "/lecturers/create",
         data_generator=lambda r_id: generate_lecturer_data(f"setup_nosql_{r_id}"), num_requests=1
     )
     all_results.extend(lecturer_results_nosql)
-    if new_lecturer_id_nosql: lecturer_ids_nosql.extend(new_lecturer_id_nosql)
-    else: print("NoSQL Lecturer setup failed, subsequent dependent setups may be skipped.")
+    if new_lecturer_id_nosql:
+        lecturer_ids_nosql.extend(new_lecturer_id_nosql)
+        print(f"  NoSQL Lecturer ID (for dependent tests): {lecturer_ids_nosql[0]}")
+    else:
+        print("NoSQL Lecturer setup failed, subsequent dependent setups may be skipped.")
 
     if lecturer_ids_nosql:
         course_results_nosql, new_course_id_nosql = run_test_scenario(
             "Setup: Create Course", NOSQL_BASE_URL, "POST", "/courses/create",
-            data_generator=lambda r_id: generate_course_data(lecturer_ids_nosql[0], f"setup_nosql_{r_id}"), num_requests=1
+            data_generator=lambda r_id: generate_course_data(lecturer_ids_nosql[0], f"setup_nosql_{r_id}", for_nosql=True),
+            num_requests=1
         )
         all_results.extend(course_results_nosql)
         if new_course_id_nosql: course_ids_nosql.extend(new_course_id_nosql)
@@ -386,7 +574,8 @@ if __name__ == "__main__":
     if user_ids_nosql:
         student_results_nosql, new_student_id_nosql = run_test_scenario(
             "Setup: Create Student", NOSQL_BASE_URL, "POST", "/students/create",
-            data_generator=lambda r_id: generate_student_data(user_ids_nosql[0], f"setup_nosql_{r_id}"), num_requests=1
+            data_generator=lambda r_id: generate_student_data(user_ids_nosql[0], f"setup_nosql_{r_id}", for_nosql=True),
+            num_requests=1
         )
         all_results.extend(student_results_nosql)
         if new_student_id_nosql: student_ids_nosql.extend(new_student_id_nosql)
@@ -398,17 +587,98 @@ if __name__ == "__main__":
     print("\n--- Running Batch Operations ---")
     
     # Batch Create Users
-    batch_user_results_sql, _ = run_batch_create_scenario(
+    batch_user_results_sql, created_user_ids_sql = run_batch_create_scenario(
         f"Batch Create Users ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/users/create",
         data_generator=generate_user_data, num_items=NUM_ITERATIONS_BATCH
     )
     all_results.extend(batch_user_results_sql)
 
-    batch_user_results_nosql, _ = run_batch_create_scenario(
+    batch_user_results_nosql, created_user_ids_nosql = run_batch_create_scenario(
         f"Batch Create Users ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/users/create",
         data_generator=generate_user_data, num_items=NUM_ITERATIONS_BATCH
     )
     all_results.extend(batch_user_results_nosql)
+
+    # Batch Create Students
+    if user_ids_sql:
+        batch_student_results_sql, created_student_ids_sql = run_batch_create_scenario(
+            f"Batch Create Students ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/students/create",
+            generate_student_data, NUM_ITERATIONS_BATCH, user_ids_sql[0] # Positional args first
+        )
+        all_results.extend(batch_student_results_sql)
+    else:
+        print("Skipping Batch Create Students (SQL): No user ID available from setup.")
+        created_student_ids_sql = []
+
+    if user_ids_nosql:
+        batch_student_results_nosql, created_student_ids_nosql = run_batch_create_scenario(
+            f"Batch Create Students ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/students/create",
+            generate_student_data, NUM_ITERATIONS_BATCH, user_ids_nosql[0], for_nosql=True
+        )
+        all_results.extend(batch_student_results_nosql)
+    else:
+        print("Skipping Batch Create Students (NoSQL): No user ID available from setup.")
+        created_student_ids_nosql = []
+
+    # Batch Create Courses
+    if lecturer_ids_sql:
+        batch_course_results_sql, created_course_ids_sql = run_batch_create_scenario(
+            f"Batch Create Courses ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/courses/create",
+            generate_course_data, NUM_ITERATIONS_BATCH, lecturer_ids_sql[0]
+        )
+        all_results.extend(batch_course_results_sql)
+    else:
+        print("Skipping Batch Create Courses (SQL): No lecturer ID available from setup.")
+        created_course_ids_sql = []
+
+    if lecturer_ids_nosql:
+        batch_course_results_nosql, created_course_ids_nosql = run_batch_create_scenario(
+            f"Batch Create Courses ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/courses/create",
+            generate_course_data, NUM_ITERATIONS_BATCH, lecturer_ids_nosql[0], for_nosql=True
+        )
+        all_results.extend(batch_course_results_nosql)
+    else:
+        print("Skipping Batch Create Courses (NoSQL): No lecturer ID available from setup.")
+        created_course_ids_nosql = []
+
+    # Batch Update Users
+    if created_user_ids_sql:
+        update_user_results_sql, _ = run_batch_update_scenario(
+            f"Batch Update Users ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/users",
+            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"}, # Added kwargs
+            num_items=NUM_ITERATIONS_BATCH, ids_to_update=created_user_ids_sql
+        )
+        all_results.extend(update_user_results_sql)
+    else:
+        print("Skipping Batch Update Users (SQL): No user IDs available from batch creation.")
+
+    if created_user_ids_nosql:
+        update_user_results_nosql, _ = run_batch_update_scenario(
+            f"Batch Update Users ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/users",
+            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"}, # Added kwargs
+            num_items=NUM_ITERATIONS_BATCH, ids_to_update=created_user_ids_nosql
+        )
+        all_results.extend(update_user_results_nosql)
+    else:
+        print("Skipping Batch Update Users (NoSQL): No user IDs available from batch creation.")
+
+    # Batch Delete Users
+    if created_user_ids_sql:
+        delete_user_results_sql, _ = run_batch_delete_scenario(
+            f"Batch Delete Users ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/users", created_user_ids_sql
+        )
+        all_results.extend(delete_user_results_sql)
+    else:
+        print("Skipping Batch Delete Users (SQL): No user IDs available for deletion.")
+
+    if created_user_ids_nosql:
+        delete_user_results_nosql, _ = run_batch_delete_scenario(
+            f"Batch Delete Users ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/users", created_user_ids_nosql
+        )
+        all_results.extend(delete_user_results_nosql)
+    else:
+        print("Skipping Batch Delete Users (NoSQL): No user IDs available for deletion.")
+
 
     # --- 3. Complex Queries ---
     print("\n--- Running Complex Queries ---")
@@ -446,6 +716,15 @@ if __name__ == "__main__":
         f"Concurrent Get All Users ({NUM_CONCURRENT_REQUESTS})", NOSQL_BASE_URL, "/users", NUM_CONCURRENT_REQUESTS
     ))
 
+    # Concurrent Complex Query: Students with Details & Courses
+    all_results.extend(run_concurrent_read_scenario(
+        f"Concurrent Complex Query: Students with Details & Courses ({NUM_CONCURRENT_REQUESTS})", SQL_BASE_URL, "/students/details/full", NUM_CONCURRENT_REQUESTS
+    ))
+    all_results.extend(run_concurrent_read_scenario(
+        f"Concurrent Complex Query: Students with Details & Courses ({NUM_CONCURRENT_REQUESTS})", NOSQL_BASE_URL, "/students/details/full", NUM_CONCURRENT_REQUESTS
+    ))
+
+
     # --- Data Analysis and Visualization ---
     df_results = pd.DataFrame(all_results)
     
@@ -456,13 +735,11 @@ if __name__ == "__main__":
     print(df_analysis)
 
     print("\n--- Aggregated Results (Mean, Median, Std Dev) ---")
-    # Group by scenario and base_url, exclude 'Total' rows for per-request stats
-    agg_df = df_analysis[df_analysis['request_num'] != 'Total'].groupby(['scenario', 'backend_type'])['response_time_ms'].agg(['mean', 'median', 'std', 'min', 'max']).reset_index() # Changed base_url to backend_type
+    agg_df = df_analysis[df_analysis['request_num'] != 'Total'].groupby(['scenario', 'backend_type'])['response_time_ms'].agg(['mean', 'median', 'std', 'min', 'max']).reset_index()
     print(agg_df)
 
     print("\n--- Total Times for Batch and Concurrent Scenarios ---")
-    # Filter for 'Total' rows for batch and concurrent scenarios
-    total_times_df = df_analysis[df_analysis['request_num'] == 'Total'].groupby(['scenario', 'backend_type'])['response_time_ms'].agg(['sum']).reset_index() # Changed base_url to backend_type
+    total_times_df = df_analysis[df_analysis['request_num'] == 'Total'].groupby(['scenario', 'backend_type'])['response_time_ms'].agg(['sum']).reset_index()
     total_times_df.rename(columns={'sum': 'total_time_ms'}, inplace=True)
     print(total_times_df)
 
@@ -471,7 +748,7 @@ if __name__ == "__main__":
 
     # Plot 1: Average Response Times for Complex Queries
     plt.figure(figsize=(12, 7))
-    sns.barplot(x='scenario', y='mean', hue='backend_type', data=agg_df[agg_df['scenario'].str.startswith('Complex Query:')]) # Changed base_url to backend_type
+    sns.barplot(x='scenario', y='mean', hue='backend_type', data=agg_df[agg_df['scenario'].str.startswith('Complex Query:')])
     plt.title('Average Response Times for Complex Queries (Lower is Better)')
     plt.ylabel('Average Response Time (ms)')
     plt.xlabel('Complex Query Scenario')
@@ -481,28 +758,74 @@ if __name__ == "__main__":
 
     # Plot 2: Total Time for Batch Create Users
     plt.figure(figsize=(8, 6))
-    sns.barplot(x='backend_type', y='total_time_ms', data=total_times_df[total_times_df['scenario'].str.contains('Batch Create Users')]) # Changed base_url to backend_type
+    sns.barplot(x='backend_type', y='total_time_ms', data=total_times_df[total_times_df['scenario'].str.contains('Batch Create Users')])
     plt.title(f'Total Time for Batch Create Users ({NUM_ITERATIONS_BATCH} items) (Lower is Better)')
     plt.ylabel('Total Time (ms)')
     plt.xlabel('Backend Type')
     plt.tight_layout()
     plt.show()
 
-    # Plot 3: Average Response Time for Concurrent Reads
+    # Plot 3: Average Response Time for Concurrent Reads (Get All Users)
     plt.figure(figsize=(8, 6))
-    sns.barplot(x='backend_type', y='mean', data=agg_df[agg_df['scenario'].str.contains('Concurrent Get All Users')]) # Changed base_url to backend_type
+    sns.barplot(x='backend_type', y='mean', data=agg_df[agg_df['scenario'].str.contains('Concurrent Get All Users')])
     plt.title(f'Average Response Time for Concurrent Get All Users ({NUM_CONCURRENT_REQUESTS} requests) (Lower is Better)')
     plt.ylabel('Average Response Time (ms)')
     plt.xlabel('Backend Type')
     plt.tight_layout()
     plt.show()
 
-    # Plot 4: Success Rate for all scenarios
-    success_rates = df_analysis.groupby(['scenario', 'backend_type'])['success'].mean().reset_index() # Changed base_url to backend_type
+    # Plot 4: Total Time for Batch Create Students
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='backend_type', y='total_time_ms', data=total_times_df[total_times_df['scenario'].str.contains('Batch Create Students')])
+    plt.title(f'Total Time for Batch Create Students ({NUM_ITERATIONS_BATCH} items) (Lower is Better)')
+    plt.ylabel('Total Time (ms)')
+    plt.xlabel('Backend Type')
+    plt.tight_layout()
+    plt.show()
+
+    # Plot 5: Total Time for Batch Create Courses
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='backend_type', y='total_time_ms', data=total_times_df[total_times_df['scenario'].str.contains('Batch Create Courses')])
+    plt.title(f'Total Time for Batch Create Courses ({NUM_ITERATIONS_BATCH} items) (Lower is Better)')
+    plt.ylabel('Total Time (ms)')
+    plt.xlabel('Backend Type')
+    plt.tight_layout()
+    plt.show()
+
+    # Plot 6: Average Response Time for Concurrent Complex Query (Students with Details & Courses)
+    plt.figure(figsize=(12, 7))
+    sns.barplot(x='backend_type', y='mean', data=agg_df[agg_df['scenario'].str.contains('Concurrent Complex Query: Students with Details & Courses')])
+    plt.title(f'Average Response Time for Concurrent Complex Query: Students with Details & Courses ({NUM_CONCURRENT_REQUESTS} requests) (Lower is Better)')
+    plt.ylabel('Average Response Time (ms)')
+    plt.xlabel('Backend Type')
+    plt.tight_layout()
+    plt.show()
+
+    # Plot 7: Total Time for Batch Update Users
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='backend_type', y='total_time_ms', data=total_times_df[total_times_df['scenario'].str.contains('Batch Update Users')])
+    plt.title(f'Total Time for Batch Update Users ({NUM_ITERATIONS_BATCH} items) (Lower is Better)')
+    plt.ylabel('Total Time (ms)')
+    plt.xlabel('Backend Type')
+    plt.tight_layout()
+    plt.show()
+
+    # Plot 8: Total Time for Batch Delete Users
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='backend_type', y='total_time_ms', data=total_times_df[total_times_df['scenario'].str.contains('Batch Delete Users')])
+    plt.title(f'Total Time for Batch Delete Users ({NUM_ITERATIONS_BATCH} items) (Lower is Better)')
+    plt.ylabel('Total Time (ms)')
+    plt.xlabel('Backend Type')
+    plt.tight_layout()
+    plt.show()
+
+
+    # Plot 9: Success Rate for all scenarios
+    success_rates = df_analysis.groupby(['scenario', 'backend_type'])['success'].mean().reset_index()
     success_rates['success_rate'] = success_rates['success'] * 100 # Convert to percentage
 
     plt.figure(figsize=(12, 7))
-    sns.barplot(x='scenario', y='success_rate', hue='backend_type', data=success_rates) # Changed base_url to backend_type
+    sns.barplot(x='scenario', y='success_rate', hue='backend_type', data=success_rates)
     plt.title('Success Rate of Test Scenarios (%)')
     plt.ylabel('Success Rate (%)')
     plt.xlabel('Scenario')
