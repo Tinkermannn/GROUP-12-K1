@@ -16,20 +16,33 @@ const courseSchema = new mongoose.Schema(
             required: true,
         },
         semester: {
-            type: Number, // Assuming semester is a number like 1 or 2
+            type: Number,
             required: true,
         },
         lecturer: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Lecturer", // Reference to Lecturer model
+            ref: "Lecturer",
             required: true,
         },
-        prerequisites: [ // Array of ObjectIds referencing other courses
+        prerequisites: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Course",
             },
         ],
+        capacity: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        lecturer_name_denormalized: { // NEW FIELD: Denormalized lecturer name
+            type: String,
+            required: false // Optional, as it's a denormalized field
+        },
+        lecturer_department_denormalized: { // NEW FIELD: Denormalized lecturer department
+            type: String,
+            required: false // Optional
+        }
     },
     { timestamps: true }
 );

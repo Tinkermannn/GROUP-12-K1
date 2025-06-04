@@ -4,11 +4,10 @@ const mongoose = require('mongoose');
 
 async function createCourse(req, res) {
     try {
-        const { lecturer, prerequisites } = req.body;
+        const { lecturer, prerequisites, lecturerName, lecturerDepartment } = req.body; // Added denormalized fields
         let lecturerIdAsObjectId;
         let prerequisiteIdsAsObjectIds = [];
 
-        // Validate and cast lecturer ID to ObjectId
         if (!lecturer) {
             return res.status(400).json({ success: false, message: "Lecturer ID is required." });
         }
@@ -17,7 +16,6 @@ async function createCourse(req, res) {
         }
         lecturerIdAsObjectId = new mongoose.Types.ObjectId(lecturer);
 
-        // Validate and cast prerequisites
         if (prerequisites && Array.isArray(prerequisites)) {
             for (const prereqId of prerequisites) {
                 if (!mongoose.Types.ObjectId.isValid(prereqId)) {
@@ -30,7 +28,9 @@ async function createCourse(req, res) {
         const course = new Course({
             ...req.body,
             lecturer: lecturerIdAsObjectId,
-            prerequisites: prerequisiteIdsAsObjectIds
+            prerequisites: prerequisiteIdsAsObjectIds,
+            lecturer_name_denormalized: lecturerName, // Save denormalized fields
+            lecturer_department_denormalized: lecturerDepartment // Save denormalized fields
         });
         const saved = await course.save();
         res.status(201).json({ success: true, data: saved });
@@ -62,7 +62,7 @@ async function getCourseById(req, res) {
 
 async function updateCourse(req, res) {
     try {
-        const { lecturer, prerequisites } = req.body;
+        const { lecturer, prerequisites, lecturerName, lecturerDepartment } = req.body; // Added denormalized fields for update
         let updateBody = { ...req.body };
 
         if (lecturer !== undefined) {
@@ -82,6 +82,10 @@ async function updateCourse(req, res) {
             }
             updateBody.prerequisites = prerequisiteIdsAsObjectIds;
         }
+        // Update denormalized fields if provided
+        if (lecturerName !== undefined) updateBody.lecturer_name_denormalized = lecturerName;
+        if (lecturerDepartment !== undefined) updateBody.lecturer_department_denormalized = lecturerDepartment;
+
 
         const updated = await Course.findByIdAndUpdate(req.params.id, updateBody, { new: true });
         res.status(200).json({ success: true, data: updated });
@@ -129,6 +133,7 @@ async function getCoursesWithDetails(req, res) {
                     name: 1,
                     credits: 1,
                     semester: 1,
+                    capacity: 1,
                     lecturer_name: '$lecturerDetails.name',
                     lecturer_department: '$lecturerDetails.department',
                     prerequisites: {
@@ -151,11 +156,32 @@ async function getCoursesWithDetails(req, res) {
     }
 }
 
+// NEW FUNCTION: Get All Courses with Denormalized Lecturer Details
+async function getCoursesWithDenormalizedDetails(req, res) {
+    try {
+        const courses = await Course.find({}, {
+            _id: 1,
+            course_code: 1,
+            name: 1,
+            credits: 1,
+            semester: 1,
+            capacity: 1,
+            lecturer_name_denormalized: 1, // Directly select denormalized field
+            lecturer_department_denormalized: 1 // Directly select denormalized field
+        }).sort({ name: 1 });
+        res.status(200).json({ success: true, data: courses });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+}
+
+
 module.exports = {
     createCourse,
     getAllCourses,
     getCourseById,
     updateCourse,
     deleteCourse,
-    getCoursesWithDetails
+    getCoursesWithDetails,
+    getCoursesWithDenormalizedDetails // Export the new function
 };
