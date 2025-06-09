@@ -87,7 +87,7 @@ The `docker-compose.yml` ensures that each backend connects to its respective da
 ### Test Script Structure & Key Functions
 The benchmarking is driven by a suite of Python scripts, all located in the `Benchmark/Python Benchmark/` directory:
 
-* **`run_all_tests.py`**: The master runner script.
+* **`master_test_runner.py`**: The master runner script.
     * **Purpose:** Automates the entire benchmark process from Docker setup to executing all test scenarios sequentially. It manages Docker container lifecycle (build, start, intelligent stop).
     * **Key Function Prototype:**
         ```python
@@ -95,7 +95,7 @@ The benchmarking is driven by a suite of Python scripts, all located in the `Ben
             # Runs a single Python test script as a subprocess.
             # Prints its output and returns True on success, False on failure.
         ```python
-        # Main execution block in run_all_tests.py
+        # Main execution block in master_test_runner.py
         if __name__ == "__main__":
             # ... Docker setup and initial cleanup ...
             for script in test_scripts:
@@ -193,7 +193,7 @@ Before running the benchmark suite, ensure you have the following installed on y
 
 ## 6. How to Run the Benchmark
 
-The entire benchmark process is automated via the `run_all_tests.py` script.
+The entire benchmark process is automated via the `master_test_runner.py` script.
 
 1.  **Clone the Repository (if not already done):**
     ```bash
@@ -209,7 +209,7 @@ The entire benchmark process is automated via the `run_all_tests.py` script.
 
 3.  **Run the Master Test Runner Script:**
     ```bash
-    python run_all_tests.py
+    python master_test_runner.py
     ```
     This script will:
     * Automatically stop and remove any existing Docker containers.
