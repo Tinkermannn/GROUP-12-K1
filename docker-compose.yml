@@ -10,7 +10,7 @@ services:
     volumes:
       - ./Backend-sql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U benchmarkuser"]
+      test: ["CMD-SHELL", "pg_isready -U benchmarkuser -d benchmarkdb"]
       interval: 5s
       timeout: 5s
       retries: 10
