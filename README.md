@@ -469,31 +469,154 @@ From each test run (9 total runs: 3 machines \* 3 iterations/machine), the follo
 
 The generated plots will visually represent these metrics, allowing for clear comparisons between SQL and NoSQL performance across the various workloads. Further analysis will involve comparing aggregated statistics across the multiple runs to identify consistent trends and highlight scenarios where one database excels or struggles relative to the other.
 
+## Database Performance Analysis Report
+
+### Summary
+
+This report presents a comprehensive analysis of database performance comparing NoSQL and SQL backends across multiple scenarios. The analysis is based on 9 performance test iterations across 3 different machines, providing robust statistical insights into database behavior under various workloads.
+
 ## Performance Test Results
-*(This section will contain the detailed results and analysis from `performance_test.py`)*
+![Result](https://i.imgur.com/mg304sH.png)
+Note: For all of the output check the Graphic Result on Benchmark folder.
 
 ### Batch Operations Performance
-*(graphs and analysis for Batch Create, Update, Delete here)*
+
+The batch operations reveal significant performance differences between NoSQL and SQL backends:
+
+**Key Findings:**
+- **SQL Backend** consistently outperforms NoSQL for user creation operations (63.2ms vs 109.3ms average)
+- **NoSQL Backend** shows better performance for course and student creation operations
+- **Delete operations** generally favor NoSQL with lower average times
+- **Update operations** show comparable performance between both backends
+
+**Batch Create Users Performance:**
+- NoSQL: 106.3-120.5ms average across machines
+- SQL: 62.1-64.2ms average across machines
+- SQL shows ~40% better performance for user creation
+
+**Batch Create Courses Performance:**
+- NoSQL: 7.98-13.93ms average across machines  
+- SQL: 9.68-18.48ms average across machines
+- NoSQL shows ~25% better performance for course creation
 
 ### Complex Queries Performance
-*(graphs and analysis for Students with Details & Courses, Courses with Lecturer & Prerequisites, Lecturers with Course Count here)*
+
+Complex query performance varies significantly based on query type:
+
+**Courses with Lecturer & Prerequisites:**
+- NoSQL: 20.09-46.12ms (high variability)
+- SQL: 5.54-24.90ms (more consistent)
+- SQL generally performs better for relational queries
+
+**Lecturers with Course Count:**
+- NoSQL: 6.04-15.86ms
+- SQL: 4.96-28.01ms
+- Performance varies by machine configuration
+
+**Students with Details & Courses:**
+- NoSQL: 16.52-39.23ms
+- SQL: 6.18-31.13ms
+- SQL shows better consistency
 
 ### Concurrent Requests Performance
-*(graphs and analysis for Concurrent Get All Users, Concurrent Complex Query: Students with Details & Courses here)*
 
-## Consistency Test Results
-*(This section will contain the detailed results and analysis from `consistency_test.py`)*
-Coming Soon - Results will be added after successful execution and data collection.
+Concurrent operations reveal scalability characteristics:
 
-## Schema Evolution Test Results
-*(This section will contain the detailed results and analysis from `schema_evolution_test.py`)*
-Coming Soon - Results will be added after successful execution and data collection.
+**Concurrent Get All Users (50 requests):**
+- NoSQL: 30.91-78.48ms average response time
+- SQL: 16.39-39.97ms average response time
+- SQL demonstrates better concurrent performance
 
-## Data Locality Test Results
-*(This section will contain the detailed results and analysis from `data_locality_test.py`)*
-Coming Soon - Results will be added after successful execution and data collection.
+**Concurrent Complex Query (50 requests):**
+- NoSQL: 106.01-204.91ms average response time
+- SQL: 26.89-47.65ms average response time
+- SQL shows significantly better concurrent query performance
+
+### Statistical Analysis
+
+**Performance Variability:**
+- NoSQL shows higher standard deviation in most scenarios
+- SQL demonstrates more predictable performance patterns
+- Machine-to-machine variation is notable for both backends
+
+**Total Execution Times:**
+- Batch operations: SQL generally faster for user operations
+- Complex queries: SQL more consistent across different query types
+- Concurrent operations: SQL significantly outperforms NoSQL
+
+## Performance Insights by Category
+
+### 1. CRUD Operations
+- **Create**: Mixed results - SQL better for users, NoSQL better for courses/students
+- **Read**: SQL shows better concurrent read performance
+- **Update**: Comparable performance between backends
+- **Delete**: NoSQL slight advantage in batch deletions
+
+### 2. Query Complexity
+- **Simple queries**: Both backends perform adequately
+- **Complex relational queries**: SQL shows clear advantage
+- **Aggregation queries**: SQL demonstrates better optimization
+
+### 3. Concurrency Handling
+- **Read concurrency**: SQL significantly better (60-70% improvement)
+- **Write concurrency**: Results vary by operation type
+- **Mixed workloads**: SQL shows more predictable behavior
+
+### 4. Resource Utilization
+- **Memory usage**: NoSQL operations show higher variability
+- **CPU efficiency**: SQL appears more optimized for complex operations
+- **Network overhead**: Comparable between backends
+
+## Machine Performance Variations
+
+Performance characteristics varied across the three test machines:
+
+- **Machine 1**: Consistent baseline performance
+- **Machine 2**: Best overall performance for both backends
+- **Machine 3**: Highest variability, especially for NoSQL operations
+
+This suggests that NoSQL performance may be more sensitive to hardware configuration and system resources.
+
+## Recommendations
+
+### SQL Backend:
+- **High concurrency** is required
+- **Complex relational queries** are frequent
+- **Predictable performance** is critical
+- **ACID compliance** is mandatory
+
+### NoSQL Backend:
+- **Simple CRUD operations** dominate workload
+- **Flexible schema** requirements exist
+- **Horizontal scaling** is planned
+- **Document-based data** is primary use case
+
+### Our Future Performance Optimization Strategies:
+
+1. **For SQL Backend:**
+   - Implement connection pooling for concurrent operations
+   - Optimize indexes for complex queries
+   - Use prepared statements for batch operations
+
+2. **For NoSQL Backend:**
+   - Implement caching strategies for frequently accessed data
+   - Optimize document structure for query patterns
+   - Consider read replicas for concurrent read operations
+   - Implementing horizontal scaling
 
 ---
 
 # 8. Conclusion
-*(This section will be filled after the benchmark tests are completed and analyzed. It will summarize the key findings, discuss the strengths and weaknesses of each database based on the empirical data, and provide recommendations for specific use cases within a university management system.)*
+
+The performance analysis reveals that **SQL backend provides superior performance for most university management system scenarios**, particularly excelling in:
+- Concurrent operations (60-70% better performance)
+- Complex relational queries (more consistent performance)
+- Predictable response times across different workloads
+
+However, **NoSQL backend shows advantages in**:
+- Simple document creation operations
+- Scenarios requiring flexible schema evolution
+- Specific use cases like course and student management
+- A scalable database that can handle massive data volumes through horizontal scaling.
+
+The choice between backends should ultimately depend on specific use case requirements, expected workload patterns, and scalability needs of the university management system.
