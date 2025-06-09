@@ -1,0 +1,49 @@
+--- Aggregated Performance Test Results ---
+
+                                                      scenario  backend_type       mean    median       std      min      max
+                                    Batch Create Courses (100) NoSQL Backend   7.977379   5.41400  6.482622   4.7204  31.2148
+                                    Batch Create Courses (100)   SQL Backend  10.100018   7.00840  7.276184   5.5396  31.9922
+                                   Batch Create Students (100) NoSQL Backend   9.417151   5.85910  7.642494   4.7958  31.1752
+                                   Batch Create Students (100)   SQL Backend  11.148906   7.52360  8.035404   5.5251  31.8213
+                                      Batch Create Users (100) NoSQL Backend 110.183752 106.61545  8.738462 103.8464 153.0842
+                                      Batch Create Users (100)   SQL Backend  63.263212  61.17970  8.270084  54.8255  89.3520
+                                      Batch Delete Users (100) NoSQL Backend   7.124134   4.87635  5.601759   4.3045  25.1214
+                                      Batch Delete Users (100)   SQL Backend  12.379813   9.93830  8.035064   4.6513  36.6158
+                                      Batch Update Users (100) NoSQL Backend   7.582192   6.00055  5.038753   5.0415  29.1261
+                                      Batch Update Users (100)   SQL Backend  10.067284   6.35500  7.963145   5.4293  47.4115
+                                       Cleanup: Delete Courses NoSQL Backend  17.379100   7.75690 18.395564   5.7903  38.5901
+                                     Cleanup: Delete Lecturers NoSQL Backend  16.023250  16.02325 12.220290   7.3822  24.6643
+                                      Cleanup: Delete Students NoSQL Backend  27.502900  27.50290 18.682468  14.2924  40.7134
+                                         Cleanup: Delete Users NoSQL Backend  13.140300   7.35860 11.651942   5.5099  26.5524
+          Complex Query: Courses with Lecturer & Prerequisites NoSQL Backend  46.122100  46.12210       NaN  46.1221  46.1221
+          Complex Query: Courses with Lecturer & Prerequisites   SQL Backend   5.539400   5.53940       NaN   5.5394   5.5394
+                    Complex Query: Lecturers with Course Count NoSQL Backend   6.041200   6.04120       NaN   6.0412   6.0412
+                    Complex Query: Lecturers with Course Count   SQL Backend   8.035400   8.03540       NaN   8.0354   8.0354
+                Complex Query: Students with Details & Courses NoSQL Backend  31.847800  31.84780       NaN  31.8478  31.8478
+                Complex Query: Students with Details & Courses   SQL Backend   6.739500   6.73950       NaN   6.7395   6.7395
+Concurrent Complex Query: Students with Details & Courses (50) NoSQL Backend 204.910462 255.03455 88.438800  57.1743 308.5397
+Concurrent Complex Query: Students with Details & Courses (50)   SQL Backend  31.365066  30.04665 11.909605  10.7583  62.7690
+                                 Concurrent Get All Users (50) NoSQL Backend  31.703010  33.86540 11.909321  11.1831  59.7681
+                                 Concurrent Get All Users (50)   SQL Backend  24.173214  24.63745  6.487114   6.5723  36.6556
+
+--- Total Times for Batch and Concurrent Scenarios ---
+
+                                                              scenario  backend_type  total_time_ms
+                                    Batch Create Courses (100) (Total) NoSQL Backend       811.3505
+                                    Batch Create Courses (100) (Total)   SQL Backend      1024.2342
+                                   Batch Create Students (100) (Total) NoSQL Backend       955.5661
+                                   Batch Create Students (100) (Total)   SQL Backend      1128.7965
+                                      Batch Create Users (100) (Total) NoSQL Backend     11031.9421
+                                      Batch Create Users (100) (Total)   SQL Backend      6339.4842
+                                      Batch Delete Users (100) (Total) NoSQL Backend       723.4774
+                                      Batch Delete Users (100) (Total)   SQL Backend      1248.8592
+                                      Batch Update Users (100) (Total) NoSQL Backend       771.2311
+                                      Batch Update Users (100) (Total)   SQL Backend      1019.0794
+                                       Cleanup: Delete Courses (Total) NoSQL Backend        52.4833
+                                     Cleanup: Delete Lecturers (Total) NoSQL Backend        32.2981
+                                      Cleanup: Delete Students (Total) NoSQL Backend        55.2414
+                                         Cleanup: Delete Users (Total) NoSQL Backend        39.7642
+Concurrent Complex Query: Students with Details & Courses (50) (Total) NoSQL Backend       393.3268
+Concurrent Complex Query: Students with Details & Courses (50) (Total)   SQL Backend       100.9475
+                                 Concurrent Get All Users (50) (Total) NoSQL Backend        96.7749
+                                 Concurrent Get All Users (50) (Total)   SQL Backend        96.1703
