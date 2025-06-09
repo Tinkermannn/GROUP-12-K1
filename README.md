@@ -18,6 +18,13 @@
   - [5. Prerequisites](#5-prerequisites)
   - [6. How to Run the Benchmark](#6-how-to-run-the-benchmark)
   - [7. Results and Analysis](#7-results-and-analysis)
+    - [Performance Test Results](#performance-test-results)
+      - [Batch Operations Performance](#batch-operations-performance)
+      - [Complex Queries Performance](#complex-queries-performance)
+      - [Concurrent Requests Performance](#concurrent-requests-performance)
+    - [Consistency Test Results](#consistency-test-results)
+    - [Schema Evolution Test Results](#schema-evolution-test-results)
+    - [Data Locality Test Results](#data-locality-test-results)
   - [8. Conclusion](#8-conclusion)
 
 ---
@@ -81,7 +88,7 @@ The entire benchmarking environment is orchestrated using `docker-compose.yml`. 
 * **`backend-sql`**: The Node.js/Express application connected to PostgreSQL. It includes a `start.sh` script to ensure the database is ready and seeded before the application starts.
 * **`mongo`**: The MongoDB database instance.
 * **`backend-nosql`**: The Node.js/Express application connected to MongoDB.
-The `docker-compose.yml` ensures that each backend connects to its respective database service using Docker's internal networking, and exposes the API ports (`3000` for SQL, `4000` for NoSQL) to the host machine.
+    The `docker-compose.yml` ensures that each backend connects to its respective database service using Docker's internal networking, and exposes the API ports (`3000` for SQL, `4000` for NoSQL) to the host machine.
 ![Docker Diagram](https://i.imgur.com/Wog1j7V.png) <!-- Re-inserted Docker Diagram URL -->
 
 ### Test Script Structure & Key Functions
@@ -179,9 +186,9 @@ The benchmarking is driven by a suite of Python scripts, all located in the `Ben
 
 Before running the benchmark suite, ensure you have the following installed on your **host machine**:
 
-* **[Python 3.x](https://www.python.org/downloads/)**: Download and install Python. Ensure "Add Python to PATH" is selected during installation.
+* [**Python 3.x**](https://www.python.org/downloads/): Download and install Python. Ensure "Add Python to PATH" is selected during installation.
 * **pip**: Python's package installer, usually comes with Python.
-* **[Docker Desktop](https://www.docker.com/products/docker-desktop/)**: Required for running all database and backend services in containers. Ensure it's installed and running.
+* [**Docker Desktop**](https://www.docker.com/products/docker-desktop/): Required for running all database and backend services in containers. Ensure it's installed and running.
 * **Git**: For cloning the project repository (if applicable).
     * How to check: `git --version`
 * **Required Python Libraries**: The Python scripts will attempt to install these automatically, but you can pre-install them in your terminal (run as administrator on Windows) to avoid issues:
@@ -207,9 +214,14 @@ The entire benchmark process is automated via the `master_test_runner.py` script
     cd Benchmark/Python\ Benchmark/
     ```
 
-3.  **Run the Master Test Runner Script:**
+3.  **Open Your Docker Desktop or activate your Docker Engine**
+4.  **(Make sure the docker engine is running) Run the Master Test Runner Script:**
     ```bash
-    python master_test_runner.py
+    python master_test_runner.py 
+    or
+    python .\master_test_runner.py
+    
+    --whatever works in your os
     ```
     This script will:
     * Automatically stop and remove any existing Docker containers.
@@ -241,9 +253,31 @@ From each test run (9 total runs: 3 machines \* 3 iterations/machine), the follo
 
 The generated plots will visually represent these metrics, allowing for clear comparisons between SQL and NoSQL performance across the various workloads. Further analysis will involve comparing aggregated statistics across the multiple runs to identify consistent trends and highlight scenarios where one database excels or struggles relative to the other.
 
+### Performance Test Results
+*(This section will contain the detailed results and analysis from `performance_test.py`)*
+
+#### Batch Operations Performance
+*(graphs and analysis for Batch Create, Update, Delete here)*
+
+#### Complex Queries Performance
+*(graphs and analysis for Students with Details & Courses, Courses with Lecturer & Prerequisites, Lecturers with Course Count here)*
+
+#### Concurrent Requests Performance
+*(graphs and analysis for Concurrent Get All Users, Concurrent Complex Query: Students with Details & Courses here)*
+
+### Consistency Test Results
+*(This section will contain the detailed results and analysis from `consistency_test.py`)*
+Coming Soon - Results will be added after successful execution and data collection.
+
+### Schema Evolution Test Results
+*(This section will contain the detailed results and analysis from `schema_evolution_test.py`)*
+Coming Soon - Results will be added after successful execution and data collection.
+
+### Data Locality Test Results
+*(This section will contain the detailed results and analysis from `data_locality_test.py`)*
+Coming Soon - Results will be added after successful execution and data collection.
+
 ---
 
 ## 8. Conclusion
 *(This section will be filled after the benchmark tests are completed and analyzed. It will summarize the key findings, discuss the strengths and weaknesses of each database based on the empirical data, and provide recommendations for specific use cases within a university management system.)*
-
-</immersive>

@@ -14,6 +14,7 @@ NOSQL_BASE_URL = "http://localhost:4000"
 NUM_ITERATIONS_BATCH = 100 # Number of items for batch create/update/delete tests
 NUM_CONCURRENT_REQUESTS = 50 # Number of concurrent requests for load test
 DEFAULT_COURSE_CAPACITY = 1000 # Default capacity for courses created in this script
+OUTPUT_TXT_FILE = "performance_results.txt" # New: File to store aggregated results
 
 # --- Helper Functions ---
 
@@ -234,7 +235,6 @@ def run_batch_create_scenario(scenario_name, base_url, endpoint, data_generator,
     start_total_time = time.perf_counter()
     for i in range(num_items):
         random_id = f"{random.randint(1, 10000000)}_{i}"
-        # Pass all *args and **kwargs correctly to data_generator
         data = data_generator(*args, random_id, **kwargs)
         
         response_time, success, response_json, error_message, status_code = make_request("POST", f"{base_url}{endpoint}", data)
@@ -603,7 +603,7 @@ if __name__ == "__main__":
     if user_ids_sql:
         batch_student_results_sql, created_student_ids_sql = run_batch_create_scenario(
             f"Batch Create Students ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/students/create",
-            generate_student_data, NUM_ITERATIONS_BATCH, user_ids_sql[0] 
+            generate_student_data, NUM_ITERATIONS_BATCH, user_ids_sql[0]
         )
         all_results.extend(batch_student_results_sql)
     else:
@@ -645,7 +645,7 @@ if __name__ == "__main__":
     if created_user_ids_sql:
         update_user_results_sql, _ = run_batch_update_scenario(
             f"Batch Update Users ({NUM_ITERATIONS_BATCH})", SQL_BASE_URL, "/users",
-            data_generator=lambda r_id: {"username": f"updated_user_{r_id}"}, # Removed **kwargs from lambda call directly here
+            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"},
             num_items=NUM_ITERATIONS_BATCH, ids_to_update=created_user_ids_sql
         )
         all_results.extend(update_user_results_sql)
@@ -655,7 +655,7 @@ if __name__ == "__main__":
     if created_user_ids_nosql:
         update_user_results_nosql, _ = run_batch_update_scenario(
             f"Batch Update Users ({NUM_ITERATIONS_BATCH})", NOSQL_BASE_URL, "/users",
-            data_generator=lambda r_id: {"username": f"updated_user_{r_id}"}, # Removed **kwargs from lambda call directly here
+            data_generator=lambda r_id, **kwargs: {"username": f"updated_user_{r_id}"},
             num_items=NUM_ITERATIONS_BATCH, ids_to_update=created_user_ids_nosql
         )
         all_results.extend(update_user_results_nosql)
@@ -742,6 +742,15 @@ if __name__ == "__main__":
     total_times_df = df_analysis[df_analysis['request_num'] == 'Total'].groupby(['scenario', 'backend_type'])['response_time_ms'].agg(['sum']).reset_index()
     total_times_df.rename(columns={'sum': 'total_time_ms'}, inplace=True)
     print(total_times_df)
+
+    # --- Write Aggregated Results to TXT File ---
+    with open(OUTPUT_TXT_FILE, 'w') as f:
+        f.write("--- Aggregated Performance Test Results ---\n\n")
+        f.write(agg_df.to_string(index=False) + "\n\n")
+        f.write("--- Total Times for Batch and Concurrent Scenarios ---\n\n")
+        f.write(total_times_df.to_string(index=False) + "\n")
+
+    print(f"\nAggregated performance results written to {OUTPUT_TXT_FILE}")
 
     # --- Plotting ---
     sns.set_theme(style="whitegrid")
