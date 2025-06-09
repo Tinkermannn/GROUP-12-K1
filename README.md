@@ -103,7 +103,6 @@ The benchmarking framework consists of five specialized Python scripts located i
 |--------|---------|-----------|
 | `master_test_runner.py` | Orchestration & automation | Docker lifecycle & test execution |
 | `performance_test.py` | Core performance metrics | CRUD, batch, and concurrency testing |
-| `consistency_test.py` | Data integrity validation | Transactional consistency & race conditions |
 | `schema_evolution_test.py` | Schema flexibility analysis | DDL operations vs schema-less design |
 | `data_locality_test.py` | Data organization comparison | Normalization vs denormalization benefits |
 
@@ -272,29 +271,6 @@ def cleanup_database(base_url: str) -> list[dict]:
 
 ---
 
-#### 3. Consistency Testing (`consistency_test.py`)
-
-**Purpose**: Validates transactional integrity and concurrent update handling to ensure data consistency under load.
-
-**Test Focus**:
-- Concurrent access to shared resources
-- Transaction isolation levels
-- Race condition detection
-- Data integrity verification
-
-**Core Functions**:  
-Test concurrent student registration for limited-capacity course  
-```python
-def run_concurrent_registration_test(
-    base_url: str, 
-    backend_type: str, 
-    num_concurrent_attempts: int, 
-    course_id: str, 
-    student_ids: list
-) -> tuple[list[dict], int, int]:
-```
-
----
 
 #### 4. Schema Evolution Testing (`schema_evolution_test.py`)
 
@@ -388,11 +364,10 @@ if __name__ == "__main__":
 graph TD
     A[master_test_runner.py] --> B[Docker Setup]
     B --> C[performance_test.py]
-    C --> D[consistency_test.py]
-    D --> E[schema_evolution_test.py]
-    E --> F[data_locality_test.py]
-    F --> G[Results Analysis]
-    G --> H[Cleanup]
+    C --> D[schema_evolution_test.py]
+    D --> E[data_locality_test.py]
+    E --> F[Results Analysis]
+    F --> G[Cleanup]
 ```
 # 5. Prerequisites
 
@@ -443,7 +418,7 @@ The entire benchmark process is automated via the `master_test_runner.py` script
     * Automatically stop and remove any existing Docker containers.
     * Rebuild all Docker images (`backend-sql`, `backend-nosql`, `postgres`, `mongo`) with the latest code.
     * Start all services in detached mode.
-    * Execute `performance_test.py`, `consistency_test.py`, `schema_evolution_test.py`, and `data_locality_test.py` sequentially.
+    * Execute `performance_test.py`, `schema_evolution_test.py`, and `data_locality_test.py` sequentially.
     * Print detailed test logs to your console.
     * Generate and display various performance plots.
     * **At the end, it will prompt you:** `Type 'end' to stop Docker containers and exit, or 'keep' to keep them running and exit script:`
