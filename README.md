@@ -384,7 +384,7 @@ if __name__ == "__main__":
 
 ### Execution Architecture
 
-```
+```mermaid
 graph TD
     A[master_test_runner.py] --> B[Docker Setup]
     B --> C[performance_test.py]
