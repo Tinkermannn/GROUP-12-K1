@@ -7,6 +7,7 @@
 ## Table of Contents
 - [NoSQL VS SQL Database Benchmarking](#nosql-vs-sql-database-benchmarking)
   - [Table of Contents](#table-of-contents)
+  - [1. Title](#1-title)
   - [2. Authors](#2-authors)
   - [3. Project Description](#3-project-description)
     - [Tech Stack](#tech-stack)
@@ -31,6 +32,8 @@
   - [8. Conclusion](#8-conclusion)
 
 ---
+## 1. Title 
+### NoSQL VS SQL Database Benchmarking
 
 
 ## 2. Authors
