@@ -382,9 +382,9 @@ if __name__ == "__main__":
 
 ---
 
-### 🔄 Execution Architecture
+### Execution Architecture
 
-```mermaid
+```
 graph TD
     A[master_test_runner.py] --> B[Docker Setup]
     B --> C[performance_test.py]
@@ -394,26 +394,6 @@ graph TD
     F --> G[Results Analysis]
     G --> H[Interactive Cleanup]
 ```
-
-### 📊 Data Collection Pattern
-
-Each test script follows a consistent pattern for metrics collection:
-
-1. **Pre-test Setup**: Environment preparation and data seeding
-2. **Metric Collection**: Response times, success rates, resource usage
-3. **Post-test Analysis**: Statistical computation and visualization
-4. **Cleanup**: Test data removal and environment reset
-
-### 🛠 Common Utilities
-
-All scripts share common utility functions for:
-- HTTP request handling with timeout management
-- Performance metric calculation and aggregation
-- Data visualization using matplotlib and seaborn
-- Error handling and logging
-- Docker service health checking
----
-
 # 5. Prerequisites
 
 Before running the benchmark suite, ensure you have the following installed on your **host machine**:
