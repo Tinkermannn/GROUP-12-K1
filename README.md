@@ -392,7 +392,7 @@ graph TD
     D --> E[schema_evolution_test.py]
     E --> F[data_locality_test.py]
     F --> G[Results Analysis]
-    G --> H[Interactive Cleanup]
+    G --> H[Cleanup]
 ```
 # 5. Prerequisites
 
