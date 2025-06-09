@@ -26,9 +26,6 @@
       - [Batch Operations Performance](#batch-operations-performance)
       - [Complex Queries Performance](#complex-queries-performance)
       - [Concurrent Requests Performance](#concurrent-requests-performance)
-    - [Consistency Test Results](#consistency-test-results)
-    - [Schema Evolution Test Results](#schema-evolution-test-results)
-    - [Data Locality Test Results](#data-locality-test-results)
   - [8. Conclusion](#8-conclusion)
 
 ---
